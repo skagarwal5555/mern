@@ -1,0 +1,21 @@
+//Find the drivers and car category within 5 km
+db.drivers.aggregate( 
+      {
+		$geoNear: 
+		{
+			near: { type: "Point", coordinates: [ 88.0521, 27.1751 ] },
+		    maxDistance: 5000,
+			spherical: true,
+			distanceField: "dist.calculated"
+		}
+	  },
+	  {$unwind: "$vehicles"},
+	  {$match: { "vehicles.isActiveUsed" : true }},
+      {
+		$project: 
+		{
+			"name":1,
+			"vehicles.category":1
+		}
+	  }
+    ).pretty();

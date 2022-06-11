@@ -1,0 +1,14 @@
+//update user rating for a trip provided by the driver
+db.user.update({ "_id":1, "ridesTaken.tripId" : 100 }, { $set : { "ridesTaken.$.riderRating" : 2.5 }});
+
+//Find and verify record after update
+db.user.aggregate( 
+	  {$unwind: "$ridesTaken"},
+	  {$match: { "_id":1, "ridesTaken.tripId" : 100 }},
+      {
+		$project: 
+		{
+			"name":1,"rating":1, "ridesTaken.tripId":1, "ridesTaken.riderRating":1
+		}
+	  }
+    ).pretty();

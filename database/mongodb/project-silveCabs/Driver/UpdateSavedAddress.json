@@ -1,0 +1,5 @@
+//find saved address of the driver 
+db.drivers.find({ "_id":1 } , { "name":1, "savedAddress" :1}).pretty();
+
+//update address for a driver
+db.drivers.update({ "_id":1, "savedAddress.zipCode" : 79107 }, { $set : { "savedAddress.$.addr2" : "Apt 102" }});

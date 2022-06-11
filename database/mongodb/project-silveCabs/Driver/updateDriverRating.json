@@ -1,0 +1,15 @@
+//Find driver with id =1 and having tripId 103 , show the driver rating
+db.drivers.aggregate( 
+	{$unwind: "$trips"},
+	{$match: { "_id":1, "trips.tripId" : 103 }},
+	{
+	  $project: 
+	  {
+		  "name":1,"rating":1, "trips.tripId":1, "trips.driverRating":1
+	  }
+	}
+  ).pretty();
+
+
+//update driver rating for a trip provided by the user
+db.drivers.update({ "_id":1, "trips.tripId" : 103 }, { $set : { "trips.$.driverRating" : 4 }});

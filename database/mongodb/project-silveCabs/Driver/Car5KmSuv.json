@@ -1,0 +1,21 @@
+//Find the drivers within 5 KM with Suv Category
+db.drivers.aggregate( 
+      {
+		$geoNear: 
+		{
+			near: { type: "Point", coordinates: [ 88.0521, 27.1751 ] },
+		    maxDistance: 5000,
+			spherical: true,
+			distanceField: "dist.calculated"
+		}
+	  },
+	  {$unwind: "$vehicles"},
+	  {$match: { "vehicles.isActiveUsed" : true , "vehicles.category":"Suv"}},
+      {
+		$project: 
+		{
+			"name":1,
+			"vehicles.category":1
+		}
+	  }
+    ).pretty();

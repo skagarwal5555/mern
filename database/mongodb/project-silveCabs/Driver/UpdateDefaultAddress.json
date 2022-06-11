@@ -1,0 +1,15 @@
+//find default address of the driver
+db.drivers.find({ "_id":1 } , { "name":1, "defaultAddress" :1}).pretty();
+
+//update default address
+db.drivers.update({"_id":1}, { $set: { "defaultAddress" : {
+            "addr1":"6565 Lock Avenue",
+            "addr2":"Apt 306",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79107
+         } } });
+
+//find default address of the driver	 
+db.drivers.find({ "_id":1 } , { "name":1, "defaultAddress" :1}).pretty();

@@ -1,0 +1,5 @@
+//find saved address of the driver
+db.drivers.find({ "_id":1 } , { "name":1, "savedAddress" :1}).pretty();
+
+//Delete a Saved Address
+db.drivers.update({"_id":1}, { $pull: { "savedAddress" : { "zipCode":79108 } }} );

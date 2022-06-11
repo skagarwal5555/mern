@@ -1,0 +1,298 @@
+db.drivers.insert([
+   {
+      "_id":1,
+	  "name": {
+				"firstname":"Raju",
+				"lastname":"Biswas"
+			},
+      "email":"rajuBiswas4956@gmail.com",
+      "phoneNumber":8066749643,
+      "rating":4.5,
+      "photograph":"\\photo\\image1.png",
+      "joinedDate":new Date(2015-1-1),
+      "gender":"Male",
+      "dob":new Date(1989-01-01),
+      "currentGeoLocation":{
+         "type":"Point",
+         "coordinates":[
+            78.0421,
+            27.1751
+         ]
+      },
+      "savedAddress":[
+         {
+            "addr1":"6521 Calumet Dr",
+            "addr2":"",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79103
+         },
+         {
+            "addr1":"9562 Texas Avenue",
+            "addr2":"Apt 306",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79108
+         }
+      ],
+      "defaultAddress":{
+         "addr1":"6521 Calumet Dr",
+         "addr2":"",
+         "city":"Amarillo",
+         "state":"Texas",
+         "Country":"USA",
+         "zipCode":79103
+      },
+      "vehicles":[
+         {
+            "licensePlateNumber":"LKM1989",
+            "color":"black",
+            "category":"sedan",
+            "isActiveUsed":true
+         },
+         {
+            "licensePlateNumber":"KOL1236",
+            "color":"white",
+            "category":"Suv",
+            "isActiveUsed":false
+         },
+         {
+            "licensePlateNumber":"KLL5060",
+            "color":"Blue",
+            "category":"Luxury",
+            "isActiveUsed":false
+         }
+      ],
+      "trips":[
+         {
+			"tripId" : 102,
+            "riderId":2,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  88.0421,
+                  37.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  58.0455,
+                  59.1991
+               ]
+            },
+            "tripStartTime": new ISODate("2020-05-18T14:10:30Z"),
+            "tripEndTime":null,
+            "isSurgeApplied":false,
+            "paymentType":"cash",
+            "paymentAmount":0,
+            "driverRating":null,
+            "riderRating":null,
+            "status":"Cancelled"
+         },
+         {
+			"tripId" : 103,
+            "riderId":2,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  68.0421,
+                  27.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  58.0455,
+                  69.1991
+               ]
+            },
+            "tripStartTime": new ISODate("2020-05-19T14:10:30Z"),
+            "tripEndTime": new ISODate("2020-05-19T14:50:40Z"),
+            "isSurgeApplied":false,
+            "paymentType":"online",
+            "paymentAmount":350.36,
+            "driverRating":4.5,
+            "riderRating":4,
+            "status":"Completed"
+         }
+      ]
+   },
+   {
+      "_id":2,
+       "name": {
+				"firstname":"Hemant ",
+				"lastname":"Guha"
+			},
+      "email":"hguha12344@gmail.com",
+      "phoneNumber":8523697412,
+      "rating":4.5,
+      "photograph":"\\photo\\image13.png",
+      "joinedDate":new Date(2016-1-1),
+      "gender":"Male",
+      "dob":new Date(1987-01-01),
+      "currentGeoLocation":{
+         "type":"Point",
+         "coordinates":[
+            88.0421,
+            27.1751
+         ]
+      },
+      "savedAddress":[
+         {
+            "addr1":"6521 Finn Dr",
+            "addr2":"",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79103
+         },
+         {
+            "addr1":"9562 Kind Avenue",
+            "addr2":"Apt 526",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79108
+         }
+      ],
+      "defaultAddress":{
+         "addr1":"6521 Finn Dr",
+         "addr2":"",
+         "city":"Amarillo",
+         "state":"Texas",
+         "Country":"USA",
+         "zipCode":79103
+      },
+      "vehicles":[
+         {
+            "licensePlateNumber":"RRR1234",
+            "color":"black",
+            "category":"sedan",
+            "isActiveUsed":true
+         },
+         {
+            "licensePlateNumber":"KJL9852",
+            "color":"white",
+            "category":"Suv",
+            "isActiveUsed":false
+         }
+      ],
+      "trips":[
+         {
+			"tripId" : 100,
+            "riderId":1,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  78.0421,
+                  27.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  58.0455,
+                  59.1991
+               ]
+            },
+            "tripStartTime":new ISODate("2020-05-18T14:10:30Z"),
+            "tripEndTime":new ISODate("2020-05-18T14:30:40Z"),
+            "isSurgeApplied":false,
+            "paymentType":"cash",
+            "paymentAmount":150.36,
+            "driverRating":5,
+            "riderRating":5,
+            "status":"Completed"
+         },
+         {
+			"tripId" : 101,
+            "riderId":1,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  78.0421,
+                  27.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  38.0455,
+                  69.1991
+               ]
+            },
+            "tripStartTime":new ISODate("2020-05-19T14:10:30Z"),
+            "tripEndTime":new ISODate("2020-05-19T14:50:40Z"),
+            "isSurgeApplied":false,
+            "paymentType":"online",
+            "paymentAmount":350.36,
+            "driverRating":4.5,
+            "riderRating":4,
+            "status":"Completed"
+         }
+      ]
+   },
+   {
+      "_id":3,
+      "name": {
+				"firstname":"Md",
+				"lastname":"Ahmed"
+			},
+      "email":"MdAhemd@gmail.com",
+      "phoneNumber":5847961232,
+      "rating":4.5,
+      "photograph":"\\photo\\image14.png",
+      "joinedDate":new Date(2016-1-1),
+      "gender":"Male",
+      "dob":new Date(1987-01-01),
+      "currentGeoLocation":{
+         "type":"Point",
+         "coordinates":[
+            88.0421,
+            27.1751
+         ]
+      },
+      "savedAddress":[
+         {
+            "addr1":"5478 Finn Dr",
+            "addr2":"",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79103
+         },
+         {
+            "addr1":"4562 Kind Avenue",
+            "addr2":"Apt 526",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79108
+         }
+      ],
+      "defaultAddress":{
+         "addr1":"5478 Finn Dr",
+         "addr2":"",
+         "city":"Amarillo",
+         "state":"Texas",
+         "Country":"USA",
+         "zipCode":79103
+      },
+      "vehicles":[
+         {
+            "licensePlateNumber":"RGT4512",
+            "color":"black",
+            "category":"sedan",
+            "isActiveUsed":false
+         },
+         {
+            "licensePlateNumber":"GHY9654",
+            "color":"white",
+            "category":"Suv",
+            "isActiveUsed":true
+         }
+      ]
+   }]);

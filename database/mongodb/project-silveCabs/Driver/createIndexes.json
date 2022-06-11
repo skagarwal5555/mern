@@ -1,0 +1,2 @@
+//create index on geolocation and category
+db.drivers.createIndex( { currentGeoLocation: "2dsphere" , "vehicles.category":1} );

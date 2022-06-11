@@ -1,0 +1,5 @@
+//Delete a Saved Address by addr1
+db.user.update({"_id":1}, { $pull: { "savedAddress" : { "addr1": /6209/ } }} );
+
+//verify address is deleted
+db.user.find({ "_id":1 } , { "name":1, "savedAddress" :1}).pretty();

@@ -1,0 +1,16 @@
+//calculate total rating of driver
+db.drivers.aggregate( [
+    { $match: { _id: 1 } },
+    {
+      $set: {
+         rating: { $avg: "$trips.driverRating" }
+      }
+    },
+       {
+         $project: 
+         {
+             "name":1,
+             "rating":1
+         }
+       }
+ ]).pretty();

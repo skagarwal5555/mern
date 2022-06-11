@@ -1,0 +1,6 @@
+//find vehicles of the driver
+db.drivers.find({ "_id":2 } , { "name":1, "vehicles" :1}).pretty();
+
+//Delete a vehicles
+db.drivers.update({"_id":2}, { $pull: { "vehicles" : { "licensePlateNumber":"KLL5060" } }} );
+		 

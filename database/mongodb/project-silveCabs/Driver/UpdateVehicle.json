@@ -1,0 +1,11 @@
+
+
+//find vehicles of the driver
+db.drivers.find({ "_id":2 } , { "name":1, "vehicles" :1}).pretty();	
+
+//update address for a driver
+db.drivers.update({ "_id":2, "vehicles.licensePlateNumber" : "KLL5061" }, { $set : { "vehicles.$.color" : "Jet Black" }});
+
+		 
+
+

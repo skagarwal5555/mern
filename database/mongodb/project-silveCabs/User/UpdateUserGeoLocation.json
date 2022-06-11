@@ -1,0 +1,4 @@
+//update the geolocation of the user
+db.user.update({ "_id":1 },{
+	$set: { currentGeoLocation : { type: "Point", coordinates: [ -73.88, 43.78 ] } }
+ });

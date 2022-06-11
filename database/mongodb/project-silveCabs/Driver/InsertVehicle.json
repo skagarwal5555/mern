@@ -1,0 +1,12 @@
+
+//find vehicles of the driver
+db.drivers.find({ "_id":2 } , { "name":1, "vehicles" :1}).pretty();
+
+
+//Insert a new  vehicles 
+db.drivers.update({"_id":2}, { $push: { "vehicles" : {
+             "licensePlateNumber":"KLL5061",
+            "color":"Black",
+            "category":"Luxury",
+            "isActiveUsed":false
+         } }} );	

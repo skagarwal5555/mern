@@ -1,0 +1,204 @@
+db.user.insert([
+   {
+      "_id":1,
+      "name": {
+				"firstname":"Sourav",
+				"lastname":"Agarwal"
+			},
+      "email":"skagarwal5555@gmail.com",
+      "phoneNumber":8066749643,
+      "rating":4.5,
+      "photograph":"\\photo\\image1.png",
+      "joinedDate":new Date(2015-1-1),
+      "gender":"Male",
+      "dob":new Date(1989-01-01),
+	  "currentGeoLocation":{
+         "type":"Point",
+         "coordinates":[
+            88.0422,
+            27.1751
+         ]
+      },
+      "savedAddress":[
+         {
+            "addr1":"6209 W I-40",
+            "addr2":"Apt 3333",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79106
+         },
+         {
+            "addr1":"6040 Belpree Rd",
+            "addr2":"Apt 206",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79106
+         }
+      ],
+      "defaultAddress":{
+         "addr1":"6040 Belpree Rd",
+         "addr2":"Apt 206",
+         "city":"Amarillo",
+         "state":"Texas",
+         "Country":"USA",
+         "zipCode":79106
+      },
+      "ridesTaken":[
+         {
+			"tripId" : 100,
+            "driverId":2,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  78.0421,
+                  27.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  58.0455,
+                  59.1991
+               ]
+            },
+            "tripStartTime": new ISODate("2020-05-18T14:10:30Z"),
+            "tripEndTime": new ISODate("2020-05-18T14:30:40Z"),
+            "isSurgeApplied":false,
+            "paymentType":"cash",
+            "paymentAmount":150.36,
+            "driverRating":5,
+            "riderRating":5,
+            "status":"Completed"
+         },
+         {
+			"tripId" : 101,
+            "driverId":2,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  78.0421,
+                  27.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  38.0455,
+                  69.1991
+               ]
+            },
+            "tripStartTime": new ISODate("2020-05-19T14:10:30Z"),
+            "tripEndTime": new ISODate("2020-05-19T14:50:40Z"),
+            "isSurgeApplied":false,
+            "paymentType":"online",
+            "paymentAmount":350.36,
+            "driverRating":4.5,
+            "riderRating":4,
+            "status":"Completed"
+         }
+      ]
+   },
+   {
+      "_id":2,
+      "name": {
+				"firstname":"Manish",
+				"lastname":"Bajaj"
+			},
+      "email":"ManishBajaj1989@gmail.com",
+      "phoneNumber":9733228298,
+      "rating":4.5,
+      "photograph":"\\photo\\image12.png",
+      "joinedDate":new Date(2016-1-1),
+      "gender":"Male",
+      "dob":new Date(1988-01-01),
+	  "currentGeoLocation":{
+         "type":"Point",
+         "coordinates":[
+            78.0421,
+            27.1751
+         ]
+      },
+      "savedAddress":[
+         {
+            "addr1":"6209 W I-40",
+            "addr2":"Apt 345",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79106
+         },
+         {
+            "addr1":"6040 Belpree Rd",
+            "addr2":"Apt 562",
+            "city":"Amarillo",
+            "state":"Texas",
+            "Country":"USA",
+            "zipCode":79106
+         }
+      ],
+      "defaultAddress":{
+         "addr1":"6209 W I-40",
+         "addr2":"Apt 345",
+         "city":"Amarillo",
+         "state":"Texas",
+         "Country":"USA",
+         "zipCode":79106
+      },
+      "ridesTaken":[
+         {
+			"tripId" : 102,
+            "driverId":1,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  88.0421,
+                  37.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  58.0455,
+                  59.1991
+               ]
+            },
+            "tripStartTime": new ISODate("2020-05-18T14:10:30Z"),
+            "tripEndTime":null,
+            "isSurgeApplied":false,
+            "paymentType":"cash",
+            "paymentAmount":0,
+            "driverRating":null,
+            "riderRating":null,
+            "status":"Cancelled"
+         },
+         {
+			"tripId" : 103,
+            "driverId":1,
+            "fromLoc":{
+               "type":"Point",
+               "coordinates":[
+                  68.0421,
+                  27.1751
+               ]
+            },
+            "toLoc":{
+               "type":"Point",
+               "coordinates":[
+                  58.0455,
+                  69.1991
+               ]
+            },
+            "tripStartTime": new ISODate("2020-05-19T14:10:30Z"),
+            "tripEndTime": new ISODate("2020-05-19T14:50:40Z"),
+            "isSurgeApplied":false,
+            "paymentType":"online",
+            "paymentAmount":350.36,
+            "driverRating":4.5,
+            "riderRating":4,
+            "status":"Completed"
+         }
+      ]
+   }
+]);
