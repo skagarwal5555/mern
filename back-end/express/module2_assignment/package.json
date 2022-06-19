@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16"
+  },
+  "name": "module2_assignment",
+  "version": "1.0.0",
+  "description": "Display json data in get endpoint",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run open && npm run build",
+    "open": "start http://localhost:6500",
+    "build": "nodemon ./index.js localhost 6500",    
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
