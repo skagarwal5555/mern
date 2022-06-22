@@ -4,31 +4,40 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+var flash = require('connect-flash');
+var session = require('express-session');
 
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
+var adminDashRouter = require("./routes/adminDash");
+var indexRouter = require("./routes/users");
+const InitiateMongoServer = require("./config/db");
 
-var app = express();
+InitiateMongoServer();
 
-var mongoDB = "mongodb://127.0.0.1/local_library";
-mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+const app = express();
+app.locals.moment = require('moment');
 
-var db = mongoose.connection;
+const PORT = process.env.PORT || 4000;
 
-db.on("error", console.error.bind(console, "MongoDB connection error: "));
+app.use(bodyParser.json());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
 
-app.use(logger("dev"));
+//app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(session({ secret: 'keyboard cat',
+resave: false,
+saveUninitialized: true,
+cookie: { secure: true }}));
+app.use(flash());
 app.use(express.static(path.join(__dirname, "public")));
 
+app.use("/adminDash", adminDashRouter);
 app.use("/", indexRouter);
-app.use("/users", usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -44,6 +53,10 @@ app.use(function (err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
+});
+
+app.listen(PORT, (req, res) => {
+  console.log(`Express server listening on PORT ${PORT}`);
 });
 
 module.exports = app;

@@ -1,0 +1,43 @@
+doctype html
+html(lang='en')
+ head
+   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+    integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous')
+   style
+      include ../public/stylesheets/style.css
+ body
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js'
+           integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='
+           crossorigin='anonymous')
+           
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+           integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous')
+    h1 Order Status
+    form(action="/adminDash/sendemail" method="POST")
+        table(class='table')
+            thead(class='thead-light')
+                tr
+                    th Name 
+                    th email address 
+                    th address 1
+                    th Items 
+                    th Status 
+                    th 
+            tbody
+                each record in order_list
+                    tr
+                        input(type="hidden" name="_id" value=record._id)
+                        td=record.username 
+                        td=record.email
+                        td=record.address1 
+                        td=record.items 
+                        td
+                            
+                            if moment.duration(moment(moment().format('MM/DD/YYYY')).diff(moment(record.createdAt).format('MM/DD/YYYY'))).asDays() == 0
+                                p In Progress
+                            else if moment.duration(moment(moment().format('MM/DD/YYYY')).diff(moment(record.createdAt).format('MM/DD/YYYY'))).asDays() == 1
+                                p Dispatched
+                            else 
+                                p Delivered
+                        td 
+                            button(type="submit", name="sendEmail" class="btn-primary", onclick=`alert("Email has been sent successfully")`) Send Email

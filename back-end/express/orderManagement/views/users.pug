@@ -1,0 +1,60 @@
+doctype html
+html(lang='en')
+ head
+   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+    integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous')
+   style
+      include ../public/stylesheets/style.css
+ body
+    script(src='https://code.jquery.com/jquery-3.2.1.min.js'
+           integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='
+           crossorigin='anonymous')
+           
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+           integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous')
+    h1 Place Order
+    form(action="/" method="POST")
+        table
+            tr 
+                td 
+                            div
+                                label(for='username') Name:
+                                |
+                                |
+                                input(type='text', placeholder='name' name='username')
+                            div
+                                |
+                                |
+                                label(for='email') Email:
+                                |
+                                |
+                                input(type='email', placeholder='name@email.com' name='email')
+                            div
+                                label(for='address1') Address 1:
+                                |
+                                |
+                                input(type='text', placeholder='address1' name='address1')
+                            div
+                                label(for='address2') Address 2:
+                                |
+                                |
+                                input(type='text', placeholder='address2' name='adrress2')
+                            div
+                                label(for='city') City:
+                                |
+                                |
+                                input(type='text', placeholder='city' name='city')
+                            div
+                                label(for='zip') Zip:
+                                |
+                                |
+                                input(type='text', placeholder='zip' name='zip')
+                            div
+                                p Select items:
+                                each val, index in ['Milk', 'Coffee', 'Egg', 'Juice', 'Bread', 'Coke', 'Bagel']
+                                        input(type='checkbox', name='items', value=val, id='items')
+                                        |
+                                        |
+                                        label(for=val)=val
+                            div 
+                                button(type="submit", name="submitOrder", class="btn-primary") Submit          

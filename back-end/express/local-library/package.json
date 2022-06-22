@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "devstart": "npm run open && npm run build",
-    "open": "start http://localhost:3000",
-    "build": "nodemon ./bin/www"
+    "devstart": "nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,13 +13,9 @@
     "http-errors": "~1.6.3",
     "mongoose": "^6.3.8",
     "morgan": "~1.9.1",
-    "pug": "^2.0.4"
+    "pug": "2.0.0-beta11"
   },
   "devDependencies": {
     "nodemon": "^2.0.16"
-  },
-  "main": "app.js",
-  "author": "",
-  "license": "ISC",
-  "description": ""
+  }
 }
