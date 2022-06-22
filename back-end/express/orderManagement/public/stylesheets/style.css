@@ -24,3 +24,8 @@ tr
   text-align: left;
 }
 
+.validationError
+{
+  color:red;
+}
+

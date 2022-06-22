@@ -19,11 +19,10 @@ router.post('/',
 ], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({
-      errors: errors.array(),
-    });
+    res.render('users', { errors: errors.array() });
   }
-
+  else
+  {
   const { username, email, address1 , address2, city , zip , items } = req.body;
   console.log(req.body);
   try {
@@ -39,13 +38,14 @@ router.post('/',
     });
 
     await user.save();
-    req.flash('info', 'Info saved successfully')
+  
     res.redirect('/');
 
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Error in validating user!");
   }
+}
 }
 );
 

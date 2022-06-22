@@ -22,6 +22,10 @@ html(lang='en')
                                 |
                                 |
                                 input(type='text', placeholder='name' name='username')
+                                if(errors)
+                                    for error in errors
+                                        if (error.param=='username')
+                                            p.validationError #{error.msg}
                             div
                                 |
                                 |
@@ -29,11 +33,19 @@ html(lang='en')
                                 |
                                 |
                                 input(type='email', placeholder='name@email.com' name='email')
+                                if(errors)
+                                    for error in errors
+                                        if (error.param=='email')
+                                            p.validationError #{error.msg}
                             div
                                 label(for='address1') Address 1:
                                 |
                                 |
                                 input(type='text', placeholder='address1' name='address1')
+                                if(errors)
+                                    for error in errors
+                                        if (error.param=='address1')
+                                            p.validationError #{error.msg}
                             div
                                 label(for='address2') Address 2:
                                 |
@@ -44,11 +56,19 @@ html(lang='en')
                                 |
                                 |
                                 input(type='text', placeholder='city' name='city')
+                                if(errors)
+                                    for error in errors
+                                        if (error.param=='city')
+                                            p.validationError #{error.msg}
                             div
                                 label(for='zip') Zip:
                                 |
                                 |
                                 input(type='text', placeholder='zip' name='zip')
+                                if(errors)
+                                    for error in errors
+                                        if (error.param=='zip')
+                                            p.validationError #{error.msg}
                             div
                                 p Select items:
                                 each val, index in ['Milk', 'Coffee', 'Egg', 'Juice', 'Bread', 'Coke', 'Bagel']
@@ -57,4 +77,4 @@ html(lang='en')
                                         |
                                         label(for=val)=val
                             div 
-                                button(type="submit", name="submitOrder", class="btn-primary") Submit          
+                                button(type="submit", name="submitOrder", class="btn-primary") Submit         
