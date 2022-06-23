@@ -1,0 +1,26 @@
+{
+  "name": "shoppingcartjwt",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run open && npm run build",
+    "open": "start http://localhost:3000",
+    "build": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "~1.4.4",
+    "currency-formatter": "^1.5.9",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-validator": "^6.14.2",
+    "http-errors": "~1.6.3",
+    "jade": "^1.9.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.0",
+    "morgan": "~1.9.1",
+    "nodemon": "^1.19.4",
+    "pug": "^3.0.2"
+  }
+}

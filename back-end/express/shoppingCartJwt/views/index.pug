@@ -1,0 +1,53 @@
+doctype html
+html(lang='en')
+ head
+   link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css'
+    integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous')
+   style
+      include ../public/stylesheets/style.css
+ body
+       script(src='https://code.jquery.com/jquery-3.2.1.min.js'
+           integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4='
+           crossorigin='anonymous')
+           
+       script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+           integrity='sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa' crossorigin='anonymous')
+       h1 Shopping Cart
+       table
+              tr 
+                     td(style="width:90%")
+                            label Shopping List
+                     td(style="text-align:right")
+                            if authorized
+                                   p You're logged in as 
+                                          b #{userName}
+                            else
+                                   a(href="/users/login") Login
+                                   |&nbsp;
+                                   |&nbsp;
+                                   |&nbsp;
+                                   |&nbsp;
+                                   |&nbsp;
+                                   |&nbsp;   
+                                   a(href="/users/register") Register
+                                   |
+       div 
+       div
+       div 
+       div 
+       div 
+       div
+       div          
+              table(class='table')
+                     thead(class='thead-light')
+                            th ID 
+                            th Product 
+                            th Description 
+                            th Price 
+                     tbody 
+                            each record in product_list
+                                   tr
+                                          td=record.productId
+                                          td=record.productName 
+                                          td=record.productDescription 
+                                          td=record.price 
