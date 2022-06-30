@@ -1,26 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-
+import "./App.css";
+import LoginForm from './Components/LoginForm';
+import Product from './Components/Product'
+import SearchPage from './Components/searchPage';
+import AlertComponent  from "./Components/Alerts";
+import {  useState } from "react";
 function App() {
+  
+  const [errorMessage, updateErrorMessage] = useState(null);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p> First React App</p>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <Product></Product>
+      <SearchPage/> */}
+      <LoginForm showError={updateErrorMessage}/>
+      <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage}/>
     </div>
   );
+  
 }
 
 export default App;

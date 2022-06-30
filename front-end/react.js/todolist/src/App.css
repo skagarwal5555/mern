@@ -36,3 +36,46 @@
     transform: rotate(360deg);
   }
 }
+
+h4
+{
+  color:red;
+}
+
+.container {
+  padding-top: 30px;
+  width: 300px;
+  margin: auto;
+}
+
+.input {
+  padding: 5px 15px;
+  width: 300px;
+}
+
+.buttons {
+  padding: 5px 100px;
+  width: 300px;
+}
+
+.fruit-list {
+  margin-top: 30px;
+}
+
+.fruit {
+  list-style: none;
+  margin: 10px 0;
+  padding: 10px;
+  background: #eee;
+  display: flex;
+  justify-content: space-between;
+}
+
+.fruit-name {
+  color: blue;
+}
+
+.alertMessage {
+  min-width: 200px;
+  justify-content: space-between;
+}
