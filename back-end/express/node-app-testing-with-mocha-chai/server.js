@@ -3,7 +3,7 @@ let app = express();
 let mongoose = require("mongoose");
 let morgan = require("morgan");
 let bodyParser = require("body-parser");
-let book = require("./app/routes/book");
+let Users = require("./app/routes/users");
 let config = require("config"); //we load the db location from the JSON files
 
 let port = 3000;
@@ -30,16 +30,16 @@ app.use(bodyParser.json({ type: "application/json" }));
 
 app.get("/", (req, res) =>
   res.json({
-    message: "Welcome to Sourav's Bookstore!",
+    message: "Welcome to Sourav's User List!",
   })
 );
 
-app.route("/book").get(book.getBooks).post(book.postBook);
+app.route("/users").get(Users.getUsers).post(Users.postUser);
 app
-  .route("/book/:id")
-  .get(book.getBook)
-  .delete(book.deleteBook)
-  .put(book.updateBook);
+  .route("/users/:id")
+  .get(Users.getUser)
+  .delete(Users.deleteUser)
+  .put(Users.updateUser);
 
 app.listen(port);
 console.log("Listening on port " + port);
