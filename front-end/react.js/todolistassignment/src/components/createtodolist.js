@@ -1,67 +1,81 @@
 import "../App.css";
 import React from "react";
+import { useRef } from "react";
 
 const { useState } = React;
 
-let todoList = [];
-
-function Createdolist(props)
+function Createdolist({updateTodoList})
 {
-    const [task, setTask] = useState({
-        taskName: '',
+  const inputRef = useRef();
+
+    const [todo, setTodo] = useState({
+        id: '',
+        text: '',
+        done : false,
         errorMessage: ''
       });
 
-      const changeHandler = (e) => {
-        setTask({
-            taskName : e.target.value,
-            errorMessage: ''
-        })
-      }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if(task.taskName === '')
+        console.log(inputRef.current);
+        const text = e.target.elements.addTodo.value;
+        inputRef.current.value = "";
+
+        if(text === '')
         {
             console.log("To do task is mandatory");
-            setTask(prevState => ({
+            setTodo(prevState => ({
                 ...prevState,
                 'errorMessage' : 'To do task is mandatory'
             }))
         }
-        else if(props.taskList.includes(task.taskName))
-        {
-            setTask(prevState => ({
-                ...prevState,
-                'errorMessage' : 'Task already exists in the list'
-            }))
-        }
         else
         {
-            
-            props.setTasks(todoList.concat(task.taskName));
+          updateTodoList((prevTodos) => {
+            var obj = prevTodos.find(o => o.text === text && o.done === false);
+            if(obj!=null && obj.id>0)
+            {
+                setTodo(prevState => ({
+                  ...prevState,
+                  'errorMessage' : 'Task already exists in the list'
+              }));
+              return prevTodos;
+            }
+            else
+            {
+                  const todo = {
+                  id: Math.random(),
+                  text: text,
+                  done: false,
+                  };
+               
+                  return prevTodos.concat(todo);
+            }
+          });
         }
       }
 
       return (
-        <div className="container">
-            <h1>Add To Do Task</h1>
-              <div className="input">
-                      <input
-                        type="text"
-                        name="taskName"
-                        placeholder="to do task"
-                        onChange={changeHandler}
-                      />
-                  </div>
-              <div className="buttons" >
-                  <button type="submit"
-                      onClick={handleSubmit}>
-                    Submit
-                  </button>
-              </div>
-              <p className="errorMessage">{task.errorMessage} </p>
-        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="container">
+              <h1>Add To Do List</h1>
+                <div className="input">
+                        <input
+                          type="text"
+                          name="addTodo"
+                          placeholder="to do task"
+                          ref={inputRef}
+                        />
+                    </div>
+                <div className="buttons" >
+                    <button type="submit">
+                      Submit
+                    </button>
+                </div>
+                <p className="errorMessage">{todo.errorMessage} </p>
+          </div>
+        </form>
       );
 }
 
