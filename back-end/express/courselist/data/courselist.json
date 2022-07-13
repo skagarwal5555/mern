@@ -1,0 +1,30 @@
+[
+    {
+        "id" : 1,
+        "name" : "MERN",
+        "Description" : "Mongo Express React Node",
+        "Proficiency" : "Beginners",
+        "Price" : "100.00"
+    },
+    {
+        "id" : 2,
+        "name" : "MEAN",
+        "Description" : "Mongo Express Angular Node",
+        "Proficiency" : "Beginners",
+        "Price" : "99.00"
+    },
+    {
+        "id" : 3,
+        "name" : "BootStrap",
+        "Description" : "BootStrap Design",
+        "Proficiency" : "Beginners",
+        "Price" : "75.00"
+    },
+    {
+        "id" : 4,
+        "name" : "Javascrip/Html/Css",
+        "Description" : "Basic UI development",
+        "Proficiency" : "Beginners",
+        "Price" : "50.00"
+    }
+]

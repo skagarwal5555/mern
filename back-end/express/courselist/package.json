@@ -1,0 +1,19 @@
+{
+  "name": "courselist",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run open && npm run build",
+    "open": "start http://localhost:4000",
+    "build": "nodemon ./app.js localhost 4000",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "express-validator": "^6.14.2",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.19"
+  }
+}
