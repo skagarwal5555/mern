@@ -2,8 +2,11 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const courselist = require("./routes/courselist");
 const enquiries = require("./routes/enquiries");
+var cors = require("cors");
+var app = express();
 
-const app = express();
+app.use(cors());
+app.options("*", cors());
 
 const PORT = process.env.PORT || 4000;
 

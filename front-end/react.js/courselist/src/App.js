@@ -2,6 +2,7 @@ import "./App.css";
 import { Routes, Route, NavLink } from "react-router-dom";
 import Enquiries from "./components/Enquiries";
 import CourseList from "./components/Courselist";
+import AddEnquiry from "./components/AddEnquiry";
 function App() {
   return (
     <div className="App">
@@ -23,6 +24,7 @@ function App() {
       </nav>
       <Routes>
         <Route exact path="/" element={<CourseList />}></Route>
+        <Route exact path="/AddEnquiry/:cid" element={<AddEnquiry />}></Route>
         <Route exact path="/enquiries" element={<Enquiries />}></Route>
       </Routes>
     </div>

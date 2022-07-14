@@ -9,19 +9,21 @@ router.post(
   [
     check("username", "Please Enter a Valid Username").not().isEmpty(),
     check("email", "Please Enter a Valid Email").isEmail(),
-    check("enquiry", "Please enter atleast one character in enquiry").isLength({
-      min: 1,
-    }),
+    check("enquiry", "Please enter atleast one character in enquiry")
+      .not()
+      .isEmpty(),
     check("cid", "CourseId Missing").not().isEmpty(),
   ],
   async (req, res) => {
+    console.log("Start Validation");
+    console.log(req.body);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
+      res.set("Access-Control-Allow-Origin", "*");
       return res.status(400).json({
         errors: errors.array(),
       });
     }
-
     const { username, email, enquiry, cid } = req.body;
 
     let newEnquiry = {
@@ -47,7 +49,8 @@ router.post(
         JSON.stringify(enquiries, null, 2),
         (err) => {
           if (err) throw err;
-          res.status(200).send();
+          res.set("Access-Control-Allow-Origin", "*");
+          res.status(200).send({ message: "Success" });
         }
       );
     });
@@ -57,10 +60,14 @@ router.post(
 
 router.get("/", async (req, res) => {
   try {
+    let enquiries = [];
     fs.readFile("./data/enquiries.json", (err, data) => {
       if (err) throw err;
-      let enquiries = JSON.parse(data);
+      if (data != "") {
+        enquiries = JSON.parse(data);
+      }
       res.setHeader("Content-Type", "application/json");
+      res.set("Access-Control-Allow-Origin", "*");
       res.end(JSON.stringify(enquiries));
     });
   } catch (e) {

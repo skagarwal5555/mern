@@ -10,6 +10,7 @@ router.get("/", async (req, res) => {
       let courses = JSON.parse(data);
       console.log(courses);
       res.setHeader("Content-Type", "application/json");
+      res.set('Access-Control-Allow-Origin', '*');
       res.end(JSON.stringify(courses));
     });
   } catch (e) {
