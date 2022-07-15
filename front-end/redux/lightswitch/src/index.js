@@ -4,6 +4,7 @@ import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider, connect } from "react-redux";
+import { useSelector } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -28,11 +29,15 @@ const store = configureStore({ reducer: reducer });
 console.log(store.getState());
 
 function Room() {
+  const IsLightOnBool = useSelector((state) => state.isLightOn);
+
+  console.log("Islight On:" + IsLightOnBool);
   const flipLight = () => {
     store.dispatch({ type: "FLIP" });
   };
 
-  const isLightOn = isLightOn ? "On" : "Off";
+  const isLightOn = IsLightOnBool ? "On" : "Off";
+  console.log("Islight On:" + isLightOn);
   return (
     <div className="App">
       the light in room is {isLightOn}
