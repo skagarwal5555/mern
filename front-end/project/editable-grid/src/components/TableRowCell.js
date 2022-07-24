@@ -30,18 +30,18 @@ const inputStyle = {
   fontSize: "13px",
 };
 
-function CellItem({ value, rowIndex, columIndex, mode }) {
+function CellItem({ value, columIndex, id, mode }) {
   const [localMode, setLocalMode] = React.useState(mode ?? "read");
   const [localValue, setLocalValue] = React.useState(value ?? "");
   React.useEffect(() => setLocalMode(mode ?? "read"), [mode]);
   React.useEffect(() => setLocalValue(value ?? ""), [value]);
-  if (localMode === "edit") {
+  if (localMode === "edit" && columIndex !== "id") {
     const handleInputChange = (e) => {
       setLocalValue(e.target.value);
     };
     const handleBlur = (e) => {
       //send column and row index to update update of the specific field
-      store.dispatch(setUpdatedData(e.target.value, rowIndex, columIndex));
+      store.dispatch(setUpdatedData(e.target.value, id, columIndex));
       setLocalMode("read");
     };
     return (
@@ -59,7 +59,7 @@ function CellItem({ value, rowIndex, columIndex, mode }) {
   }
   if (localMode === "read") {
     const handleEditClick = (e) => {
-      setLocalMode("edit");
+      if (columIndex !== "id") setLocalMode("edit");
     };
     return (
       <div style={textStyle} onDoubleClick={handleEditClick}>

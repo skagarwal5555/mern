@@ -38,15 +38,16 @@ function userInfoReducer(state = initialState, action) {
         sortOrder: action.payload.sortOrder,
       };
     case "SET_UPDATED_DATA":
+      console.log(action.payload);
       return {
         ...state,
         filteredData: state.filteredData.map((data, i) =>
-          i === action.payload.rowIndex
+          data.id === action.payload.id
             ? { ...data, [action.payload.columnKey]: action.payload.newData }
             : data
         ),
         userInfoList: state.userInfoList.map((data, i) =>
-          i === action.payload.rowIndex
+          data.id === action.payload.id
             ? { ...data, [action.payload.columnKey]: action.payload.newData }
             : data
         ),

@@ -27,12 +27,12 @@ export function setSortKeyOrder(sortKey, sortOrder) {
   };
 }
 
-export function setUpdatedData(data, rowIndex, columnKey) {
+export function setUpdatedData(data, id, columnKey) {
   return {
     type: "SET_UPDATED_DATA",
     payload: {
       newData: data,
-      rowIndex: rowIndex,
+      id: id,
       columnKey: columnKey,
     },
   };
