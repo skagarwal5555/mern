@@ -1,0 +1,29 @@
+{
+  "name": "backend",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npm run open && npm run build",
+    "open": "start http://localhost:8081",
+    "build": "nodemon ./bin/www -e js,html -w .  -w routes -w models"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "currency-formatter": "^1.5.9",
+    "debug": "~2.6.9",
+    "eslint": "^8.20.0",
+    "express": "^4.16.4",
+    "express-session": "^1.17.2",
+    "express-validator": "^6.14.2",
+    "http-errors": "^2.0.0",
+    "jsonwebtoken": "^8.5.1",
+    "mocha": "^9.0.3",
+    "mongoose": "^5.13.3",
+    "morgan": "~1.9.1",
+    "nodemon": "^2.0.19"
+  }
+}
