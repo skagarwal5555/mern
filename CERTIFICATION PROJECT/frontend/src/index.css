@@ -1,0 +1,72 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.carousel
+{
+  border: 1px;
+  border-color: grey;
+  border-style: solid;
+}
+
+.carousel-inner{
+  width:96%;
+  max-height: 350px !important;
+}
+
+.carousel-control-prev, .carousel-control-next , .carousel-caption
+{
+  color:black;
+}
+
+.carousel-inner>.carousel-item>img, .carousel-inner>.carousel-item>a>img {
+  display: block;
+  height: fit-content;
+  max-height: 350px !important;
+  max-width: 95%;
+  line-height: 1;
+  margin:auto;
+  width: 95%;
+  object-fit:contain;
+  }
+
+  .card-img-top
+  {
+    display: block;
+    height: fit-content;
+    max-height: 100px !important;
+    max-width: 95%;
+    line-height: 1;
+    margin:auto;
+    width: 95%;
+    object-fit:contain;
+  }
+
+  .card-body
+  {
+    display:block;
+  }
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {}

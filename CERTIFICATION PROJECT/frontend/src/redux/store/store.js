@@ -1,0 +1,15 @@
+import thunk from "redux-thunk";
+import promise from "redux-promise";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "../reducers";
+
+//The created store
+export default configureStore({
+  reducer: rootReducer,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    })
+      .concat(thunk)
+      .concat(promise),
+});

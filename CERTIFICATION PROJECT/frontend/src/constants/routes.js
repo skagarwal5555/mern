@@ -1,0 +1,15 @@
+export const HOME = "/";
+export const LOGIN = "/login";
+export const REGISTER = "/register";
+export const PROFILE = "/profile";
+export const CATEGORIES = "/categories/:id";
+export const CART = "/cart";
+export const VIEW_PRODUCT = "/product/:id";
+export const CHECKOUT = "/checkout";
+export const ORDERS = "/orders";
+export const ADMIN_DASHBOARD = "/admin/dashboard";
+export const ADMIN_PRODUCTS = "/admin/products";
+export const ADD_PRODUCT = "/admin/add-new-product";
+export const EDIT_PRODUCT = "/admin/products/:product_id/edit";
+export const ADMIN_ORDERS = "/admin/orders";
+export const SEARCH = "/search/:searchKey";
