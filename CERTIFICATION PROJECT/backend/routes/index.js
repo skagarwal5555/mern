@@ -44,7 +44,17 @@ router.get("/categories", async (req, res) => {
 
 router.get("/products", async (req, res) => {
   try {
-    const products = await Product.aggregate([{ $sample: { size: 8 } }]);
+    var products = await Product.aggregate([
+      {
+        $lookup: {
+          from: "category",
+          localField: "category",
+          foreignField: "_id",
+          as: "categoryList",
+        },
+      },
+      { $sample: { size: 8 } },
+    ]);
     res.status(200).json({
       status: "success",
       products: products,
@@ -52,6 +62,22 @@ router.get("/products", async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({ message: "Product 8 for homepage failed" });
+  }
+});
+
+//get product details by Id
+router.get("/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id, { id });
+    const product = await Product.find({ category: id }).populate("category");
+    res.status(200).json({
+      status: "success",
+      product,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "Product search failed" });
   }
 });
 

@@ -95,7 +95,7 @@ router.get("/", auth, async (req, res, next) => {
       orders,
     });
   } else {
-    var orders = Order.find({ email: req.user.email }).populate({
+    var orders = await Order.find({ email: req.user.email }).populate({
       path: "cartId",
       populate: {
         path: "items.productId",

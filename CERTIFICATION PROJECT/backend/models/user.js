@@ -17,21 +17,28 @@ const user_schema = new mongoose.Schema(
     interests: String,
     profileImage: String,
     address: {
-      streetAddress: String,
-      city: String,
-      state: String,
-      zipCode: String,
-    },
-    createdOn: {
-      type: Date,
-      default: Date.now(),
-    },
-    updatedOn: {
-      type: Date,
-      default: null,
+      type: {
+        streetAddress: String,
+        city: String,
+        state: String,
+        zipCode: String,
+      },
+      default: {
+        streetAddress: "",
+        city: "",
+        state: "",
+        zipCode: "",
+      },
     },
   },
   { versionKey: false, timestamps: true }
 );
+
+const address = {
+  streetAddress: String,
+  city: String,
+  state: String,
+  zipCode: String,
+};
 
 module.exports = mongoose.model("User", user_schema);
