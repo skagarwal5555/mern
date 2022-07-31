@@ -10,6 +10,8 @@ import { Header } from "./components/Header";
 import Profile from "./components/Profile";
 import Checkout from "./components/Checkout";
 import Orders from "./components/Orders";
+import AdminAddEditProduct from "./components/AdminAddEditProduct";
+import AdminManageProducts from "./components/AdminManageProducts";
 const alwaysCentered = {
   display: "flex",
   alignItems: "center",
@@ -34,6 +36,19 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/checkout" element={<Checkout />}></Route>
           <Route path="/orders" element={<Orders />}></Route>
+          <Route
+            path="/admin/add-new-product"
+            element={<AdminAddEditProduct />}
+          ></Route>
+          <Route
+            path="/admin/products/:product_id/edit"
+            element={<AdminAddEditProduct />}
+          ></Route>
+          <Route
+            path="/admin/products"
+            element={<AdminManageProducts />}
+          ></Route>
+          <Route path="/admin/orders" element={<Orders />}></Route>
         </Routes>
       </div>
       <Footer></Footer>

@@ -108,7 +108,7 @@ router.get("/", auth, async (req, res, next) => {
     //admin is not allowed to shop
     res.status(403).json({ message: "Access Denied" });
   } else {
-    var cart = await Cart.find({
+    var cart = await Cart.findOne({
       email: req.user.email,
       isOrdered: false,
     }).populate({

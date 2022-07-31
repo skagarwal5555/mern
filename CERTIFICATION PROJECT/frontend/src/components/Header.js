@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 import shop24x7Logo from "../static/logo_wordmark.png";
 import { useSelector } from "react-redux";
+import cartIcon from "../static/cartIcon.png";
 export function Header() {
   var token = useSelector((state) => state.auth.acessToken);
   console.log(token);
@@ -27,7 +28,39 @@ export function Header() {
               <i className="fa fa-search" aria-hidden="true"></i>
             </button>
           </form>
-
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <NavLink to="/admin/orders" className="nav-link">
+                Orders
+              </NavLink>
+            </li>
+          </ul>
+          <ul
+            className="navbar-nav"
+            style={{ display: token !== "" ? "block" : "none" }}
+          >
+            <li className="nav-item dropdown">
+              <a
+                href="/"
+                className="nav-link dropdown-toggle"
+                role="button"
+                data-toggle="dropdown"
+              >
+                <strong>Product</strong>
+              </a>
+              <div className="dropdown-menu dropdown-menu-right bg-primary">
+                <NavLink
+                  to="/admin/add-new-product"
+                  className="nav-link nav-item navbar-dark nav-link"
+                >
+                  Add Product
+                </NavLink>
+                <NavLink to="/admin/products" className="nav-link nav-item">
+                  Manage Products
+                </NavLink>
+              </div>
+            </li>
+          </ul>
           <ul className="navbar-nav">
             <li className="nav-item">
               <NavLink to="/" className="nav-link">
@@ -43,6 +76,11 @@ export function Header() {
             <li style={{ display: token !== "" ? "none" : "block" }}>
               <NavLink to="/login" className="nav-link">
                 Login
+              </NavLink>
+            </li>
+            <li style={{ cursor: "pointer" }}>
+              <NavLink to="/cart" className="nav-link">
+                <img src={cartIcon} alt="navbar-brand" width="30" height="30" />
               </NavLink>
             </li>
           </ul>

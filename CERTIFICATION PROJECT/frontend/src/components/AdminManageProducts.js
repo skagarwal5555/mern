@@ -3,23 +3,21 @@ import { Container } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import OrderRow from "./OrderRow";
+import AdminProductRow from "./AdminProductRow";
 
-function Orders() {
+function AdminManageProducts() {
   const Token = useSelector((state) => state.auth.acessToken);
-  let [orders, SetOrder] = useState([]);
-  console.log(Token);
-  const loadUserOrders = async () => {
+  let [products, SetOrder] = useState([]);
+  const loadAllProducts = async () => {
     const config = {
       headers: { token: Token },
     };
-    console.log(config);
     await axios
-      .get("http://localhost:8081/api/v1/orders", config)
+      .get("http://localhost:8081/api/v1/products", config)
       .then((res) => {
         console.log(res);
         if (res.data.status === "success") {
-          SetOrder(res.data.orders);
+          SetOrder(res.data.products);
         }
       })
       .catch((err) => {
@@ -28,25 +26,24 @@ function Orders() {
   };
 
   useEffect(() => {
-    loadUserOrders();
+    loadAllProducts();
   }, []);
-
   return (
     <Container className="w-50">
       <div className="mt-4 mb-5">
         <div>
-          <strong>Your Orders</strong>
+          <strong>Manage Products</strong>
         </div>
       </div>
-      {orders !== undefined && orders.length > 0 ? (
-        orders.map((p) => <OrderRow order={p}></OrderRow>)
+      {products !== undefined && products.length > 0 ? (
+        products.map((p) => <AdminProductRow product={p}></AdminProductRow>)
       ) : (
         <div>
-          <strong>No Orders</strong>
+          <strong>No Products to display</strong>
         </div>
       )}
     </Container>
   );
 }
 
-export default Orders;
+export default AdminManageProducts;
