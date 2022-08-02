@@ -1,19 +1,19 @@
 import "./App.css";
-import { Login } from "./components/Login";
-import { Home } from "./components/Home";
-import { CategoryProducts } from "./components/Category-products";
-import { ProductPage } from "./components/Product-page";
-import { Cart } from "./components/Carts";
+import { Login } from "./components/common/Login";
+import { Home } from "./components/home/Home";
+import { CategoryProducts } from "./components/category/Category-products";
+import { ProductPage } from "./components/products/Product-page";
+import { Cart } from "./components/cart/Carts";
 import { Routes, Route } from "react-router-dom";
-import { Footer } from "./components/Footer";
+import { Footer } from "./components/common/Footer";
 import { Header } from "./components/navigation/Header";
 import Profile from "./components/Profile";
-import Checkout from "./components/Checkout";
-import Orders from "./components/Orders";
-import AdminAddEditProduct from "./components/AdminAddEditProduct";
-import AdminManageProducts from "./components/AdminManageProducts";
-import { CategoryAll } from "./components/CategoryAll";
-import OrderDetails from "./components/OrderDetails";
+import Checkout from "./components/common/Checkout";
+import Orders from "./components/orders/Orders";
+import AdminAddEditProduct from "./components/admin/AdminAddEditProduct";
+import AdminManageProducts from "./components/admin/AdminManageProducts";
+import { CategoryAll } from "./components/category/CategoryAll";
+import OrderDetails from "./components/orders/OrderDetails";
 const alwaysCentered = {
   display: "flex",
   alignItems: "center",

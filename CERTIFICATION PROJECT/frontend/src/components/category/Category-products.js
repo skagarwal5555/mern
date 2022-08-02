@@ -2,8 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
-import { Products } from "./Products";
-import productFilters from "../static/productFilters.json";
+import { Products } from "../products/Products";
+import productFilters from "../../static/productFilters.json";
 const rowStyle = {
   padding: " 0 12px",
 };

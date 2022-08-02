@@ -3,7 +3,7 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Button, Row, Col, Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import CartRow from "./CartRow";
+import CartRow from "../cart/CartRow";
 
 function OrderDetails() {
   const { id } = useParams();

@@ -3,8 +3,8 @@ import { Container, Form, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import store from "../redux/store/store";
-import { clearCart } from "../redux/actions/cartActions";
+import store from "../../redux/store/store";
+import { clearCart } from "../../redux/actions/cartActions";
 
 function Checkout() {
   let state = useSelector((state) => state);

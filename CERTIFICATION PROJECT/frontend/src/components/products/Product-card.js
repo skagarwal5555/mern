@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { Badge } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { addProductItemToCart } from "../redux/actions/cartActions";
+import { addProductItemToCart } from "../../redux/actions/cartActions";
 
 let cardStyle = {
   borderRadius: "5px",

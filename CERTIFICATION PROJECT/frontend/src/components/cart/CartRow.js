@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import {
   addProductItemToCart,
   DecreaseRemoveProductFromCart,
-} from "../redux/actions/cartActions";
+} from "../../redux/actions/cartActions";
 
 function CartRow({ p, showActions }) {
   const auth = useSelector((state) => state.auth);

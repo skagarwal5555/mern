@@ -1,11 +1,11 @@
 import { Card, Button, Form, Row } from "react-bootstrap";
 import { useState } from "react";
-import { signInSuccess } from "../redux/actions/authActions";
-import store from "../redux/store/store";
+import { signInSuccess } from "../../redux/actions/authActions";
+import store from "../../redux/store/store";
 import { useSelector } from "react-redux";
 import { useNavigate, NavLink } from "react-router-dom";
-import { setProfile } from "../redux/actions/profileActions";
-import { setCartItems } from "../redux/actions/cartActions";
+import { setProfile } from "../../redux/actions/profileActions";
+import { setCartItems } from "../../redux/actions/cartActions";
 import axios from "axios";
 
 export function LoginCard() {

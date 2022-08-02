@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { Products } from "./Products";
 import { useSelector } from "react-redux";
-import { addProductItemToCart } from "../redux/actions/cartActions";
+import { addProductItemToCart } from "../../redux/actions/cartActions";
 
 const cardStyle = {
   borderRadius: "5px",

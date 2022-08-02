@@ -1,7 +1,7 @@
-import { Products } from "./Products";
+import { Products } from "../products/Products";
 import { Banner } from "./Banner";
 import { Row, Col } from "react-bootstrap";
-import { CategoryCard } from "./Category-card";
+import { CategoryCard } from "../category/Category-card";
 import axios from "axios";
 import { useEffect, useState } from "react";
 
