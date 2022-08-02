@@ -12,16 +12,26 @@ function cartReducer(state = [], action) {
     case SET_CART_ITEMS:
       return action.payload;
     case ADD_TO_CART:
-      return state.some((product) => product.id === action.payload.id)
-        ? state
+      return state.some(
+        (product) => product.productId._id === action.payload.productId._id
+      )
+        ? state.map((product) => {
+            if (product.productId._id === action.payload) {
+              return {
+                ...product,
+                quantity: product.quantity + 1,
+              };
+            }
+            return product;
+          })
         : [action.payload, ...state];
     case REMOVE_FROM_CART:
-      return state.filter((product) => product.id !== action.payload);
+      return state.filter((item) => item.productId._id !== action.payload);
     case CLEAR_CART:
       return [];
     case ADD_QTY_ITEM:
       return state.map((product) => {
-        if (product.id === action.payload) {
+        if (product.productId._id === action.payload) {
           return {
             ...product,
             quantity: product.quantity + 1,
@@ -31,7 +41,7 @@ function cartReducer(state = [], action) {
       });
     case MINUS_QTY_ITEM:
       return state.map((product) => {
-        if (product.id === action.payload) {
+        if (product.productId._id === action.payload) {
           return {
             ...product,
             quantity: product.quantity - 1,

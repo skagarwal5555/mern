@@ -1,28 +1,14 @@
 import axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import shop24X7 from "../static/logo_wordmark.png";
 
 function Profile() {
-  const navigate = useNavigate();
   console.log(useSelector((state) => state));
+  const profileState = useSelector((state) => state.profile);
   const token = useSelector((state) => state.auth.acessToken);
-  let [profile, setProfile] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    interest: "",
-    phone: "",
-    profileImage: "",
-    address: {
-      streetAddress: "",
-      city: "",
-      state: "",
-      zipCode: "",
-    },
-  });
+  let [profile, setProfile] = useState(profileState);
 
   const addressChangeHandler = (e) => {
     setProfile((prevState) => ({
@@ -36,31 +22,6 @@ function Profile() {
 
   let [isEditing, setIsEditing] = useState(false);
   let [profileImageError, setProfileImageError] = useState("");
-
-  const loadProfile = async () => {
-    const config = {
-      headers: { token: token },
-    };
-    await axios
-      .post("http://localhost:8081/api/v1/profile", "", config)
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "success") {
-          let user = res.data.profile;
-          setProfile(user);
-        } else {
-          navigate("/login");
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        navigate("/login");
-      });
-  };
-
-  useEffect(() => {
-    loadProfile();
-  }, []);
 
   const handleEditBtnClick = (event) => {
     event.preventDefault();

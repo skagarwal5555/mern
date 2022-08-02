@@ -39,7 +39,6 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/api/v1/orders", orderRouter);
 app.use("/api/v1/checkout", orderRouter);
 app.use("/api/v1/cart", cartRouter);
-app.use("/api/v1/", indexRouter);
 app.use("/api/v1/users", usersRouter);
 app.use("/api/v1/admin/products", adminProductRouter);
 app.use("/api/v1/profile", usersRouter);

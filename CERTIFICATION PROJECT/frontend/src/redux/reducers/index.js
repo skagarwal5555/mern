@@ -1,6 +1,5 @@
 import authReducer from "./authReducer";
 import cartReducer from "./cartReducer";
-import checkoutReducer from "./checkoutReducer";
 import productReducer from "./productReducer";
 import profileReducer from "./profileReducer";
 import userReducer from "./userReducer";
@@ -12,7 +11,6 @@ const rootReducer = combineReducers({
   auth: authReducer,
   profile: profileReducer,
   users: userReducer,
-  checkout: checkoutReducer,
 });
 
 export default rootReducer;

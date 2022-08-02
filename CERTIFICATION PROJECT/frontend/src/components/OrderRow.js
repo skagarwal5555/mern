@@ -1,7 +1,12 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 function OrderRow({ order }) {
+  const navigate = useNavigate();
+  const handleDetailsClick = () => {
+    navigate("/orders/" + order._id);
+  };
   return (
     <>
       <Row>
@@ -17,7 +22,9 @@ function OrderRow({ order }) {
         </Col>
         <Col md={2}>
           <div>
-            <a>Details</a>
+            <Button variant="link" onClick={handleDetailsClick}>
+              Details
+            </Button>
           </div>
         </Col>
       </Row>

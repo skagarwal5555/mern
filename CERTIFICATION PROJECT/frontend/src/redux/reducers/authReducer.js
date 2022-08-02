@@ -2,14 +2,15 @@ import { SIGNIN_SUCCESS, SIGNOUT_SUCCESS } from "../../constants/constants";
 
 const initialState = {
   acessToken: "",
+  isAdmin: "",
 };
 
 function authReducer(state = initialState, action) {
   switch (action.type) {
     case SIGNIN_SUCCESS:
-      console.log("payload" + action.payload);
       return {
-        acessToken: action.payload,
+        acessToken: action.payload.acessToken,
+        isAdmin: action.payload.isAdmin,
       };
     case SIGNOUT_SUCCESS:
       return null;

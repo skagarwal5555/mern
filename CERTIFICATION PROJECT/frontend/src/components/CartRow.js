@@ -1,77 +1,30 @@
 import React from "react";
-import { Button, Row, Col, Container } from "react-bootstrap";
-import axios from "axios";
+import { Button, Row, Col } from "react-bootstrap";
 import { useSelector } from "react-redux";
+import {
+  addProductItemToCart,
+  DecreaseRemoveProductFromCart,
+} from "../redux/actions/cartActions";
 
-function CartRow({ p }) {
-  const Token = useSelector((state) => state.auth.acessToken);
+function CartRow({ p, showActions }) {
+  const auth = useSelector((state) => state.auth);
+  const cartItems = useSelector((state) => state.cart);
+  console.log(cartItems);
   const handleRemoveProductFromCart = async () => {
-    const config = {
-      headers: { token: Token },
-    };
-    const data = {
-      productId: p.productId._id,
-      quantity: 0,
-    };
-    await axios
-      .post("http://localhost:8081/api/v1/cart", data, config)
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "success") {
-          if (res.data.cart.length !== 0) {
-            //update cart
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    DecreaseRemoveProductFromCart(p.productId, 0, auth.acessToken, cartItems);
   };
 
   const handleAddQtyCart = async () => {
-    const config = {
-      headers: { token: Token },
-    };
-    const data = {
-      productId: p.productId._id,
-      quantity: 1,
-    };
-    await axios
-      .post("http://localhost:8081/api/v1/cart", data, config)
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "success") {
-          if (res.data.cart.length !== 0) {
-            //update cart
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    addProductItemToCart(p.productId, auth.acessToken, cartItems);
   };
 
   const handleMinusQtyCart = async () => {
-    const config = {
-      headers: { token: Token },
-    };
-    const data = {
-      productId: p.productId._id,
-      quantity: p.quantity - 1 > 0 ? -1 : 0,
-    };
-    await axios
-      .post("http://localhost:8081/api/v1/cart", data, config)
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "success") {
-          if (res.data.cart.length !== 0) {
-            //update cart
-          }
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    DecreaseRemoveProductFromCart(
+      p.productId,
+      p.quantity - 1 > 0 ? -1 : 0,
+      auth.acessToken,
+      cartItems
+    );
   };
   return (
     <>
@@ -91,10 +44,15 @@ function CartRow({ p }) {
               <span>{p.productId.name}</span>
             </div>
             <div>
-              <span>Price ${p.productId.price}</span>
+              <span>Price - ${p.productId.price}</span>
             </div>
             <div>
-              <span>Discount {p.productId.discountPrice}</span>
+              <span>Discount - ${p.productId.discountPrice}</span>
+            </div>
+            <div>
+              <span style={{ display: showActions ? "none" : "block" }}>
+                Quantity - {p.quantity}
+              </span>
             </div>
           </div>
         </Col>
@@ -104,18 +62,18 @@ function CartRow({ p }) {
           </div>
         </Col>
       </Row>
-      <Row className="mt-2">
+      <Row className="mt-2" style={{ display: showActions ? "block" : "none" }}>
         <Col md={12}>
           <Button variant="secondary" onClick={handleMinusQtyCart}>
             -
           </Button>{" "}
           &nbsp; {p.quantity} &nbsp;
-          <Button variant="secondary" onClick={handleMinusQtyCart}>
+          <Button variant="secondary" onClick={handleAddQtyCart}>
             +
           </Button>{" "}
         </Col>
       </Row>
-      <Row className="mt-3">
+      <Row className="mt-3" style={{ display: showActions ? "block" : "none" }}>
         <Col md={12}>
           <Button variant="danger" onClick={handleRemoveProductFromCart}>
             Remove

@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { Products } from "./Products";
+import { useSelector } from "react-redux";
+import { addProductItemToCart } from "../redux/actions/cartActions";
 
 const cardStyle = {
   borderRadius: "5px",
@@ -19,6 +21,8 @@ export function ProductPage() {
   const [rProducts, setRProducts] = useState([]);
   const { product_id } = useParams();
   const navigate = useNavigate();
+  const auth = useSelector((state) => state.auth);
+  const cartItems = useSelector((state) => state.cart);
 
   useEffect(() => {
     loadProduct();
@@ -29,7 +33,6 @@ export function ProductPage() {
     await axios
       .get(`http://localhost:8081/api/v1/products/${product_id}`)
       .then((res) => {
-        console.log(res);
         if (res.data.status === "success") {
           setProduct(res.data.product);
         }
@@ -43,7 +46,6 @@ export function ProductPage() {
     await axios
       .get(`http://localhost:8081/api/v1/products`)
       .then((res) => {
-        console.log(res);
         if (res.data.status === "success") {
           setRProducts(res.data.products.splice(0, 6));
         }
@@ -54,12 +56,11 @@ export function ProductPage() {
   };
 
   const addToCart = () => {
-    let products = JSON.parse(localStorage.getItem("cart")) || [];
-    products.push(product);
-    localStorage.setItem("cart", JSON.stringify(products));
+    addProductItemToCart(product, auth.acessToken, cartItems);
   };
 
   const buyNow = () => {
+    addProductItemToCart(product, auth.acessToken, cartItems);
     navigate("/checkout");
   };
 
@@ -74,17 +75,22 @@ export function ProductPage() {
         <Row>
           <Col md={12}>
             <Card style={cardStyle}>
-              <Card.Img
-                variant="top"
+              <img
                 src={product.productImage}
-                height="300"
-                width="400"
-              />
+                alt={product.name}
+                width="200"
+                height="200"
+                style={{
+                  border: "1px",
+                  alignSelf: "center",
+                }}
+                className="mt-1 mb-1"
+              ></img>
             </Card>
           </Col>
         </Row>
         <Row>
-          <Col md={5}>
+          <Col md={3}>
             <div>
               <Button
                 variant="light"
@@ -92,7 +98,7 @@ export function ProductPage() {
                 disabled
                 data-testid="cart-grand-total"
               >
-                {product.price}
+                ${product.price}
               </Button>
             </div>
             <div>
@@ -114,7 +120,7 @@ export function ProductPage() {
               </Button>
             </div>
           </Col>
-          <Col md={7}>{product.description}</Col>
+          <Col md={9}>{product.description}</Col>
         </Row>
         <br></br>
         <br></br>

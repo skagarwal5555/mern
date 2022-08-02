@@ -18,8 +18,6 @@ export function Home() {
     axios
       .get("http://localhost:8081/api/v1/homepage/categories")
       .then((res) => {
-        console.log(res);
-        console.log(res.data.categories);
         if (res.data.status === "success" && res.data.categories.length > 0) {
           setCategories(res.data.categories);
         }
@@ -33,8 +31,6 @@ export function Home() {
     await axios
       .get(" http://localhost:8081/api/v1/homepage/products")
       .then((res) => {
-        console.log(res);
-        console.log(res.data.products);
         if (res.data.status === "success" && res.data.products.length > 0) {
           setMyProducts(res.data.products);
         }
@@ -48,8 +44,6 @@ export function Home() {
     await axios
       .get(" http://localhost:8081/api/v1/homepage/banner")
       .then((res) => {
-        console.log(res);
-        console.log(res.data.products);
         if (res.data.status === "success" && res.data.products.length > 0) {
           setBanner(res.data.products);
         }

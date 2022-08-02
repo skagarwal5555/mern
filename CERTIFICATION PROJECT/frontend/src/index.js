@@ -7,7 +7,6 @@ import { Provider } from "react-redux";
 import store from "./redux/store/store";
 import { BrowserRouter } from "react-router-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
-console.log("AUth State in Index: " + store.getState().auth);
 root.render(
   <Provider store={store}>
     <BrowserRouter>

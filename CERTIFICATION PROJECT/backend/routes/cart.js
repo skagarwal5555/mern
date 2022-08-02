@@ -115,7 +115,7 @@ router.get("/", auth, async (req, res, next) => {
       path: "items.productId",
     });
 
-    if (cart.length != 0) {
+    if (cart !== null && cart.length != 0) {
       res.status(200).json({
         status: "success",
         cart,

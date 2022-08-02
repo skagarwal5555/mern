@@ -6,12 +6,14 @@ import { ProductPage } from "./components/Product-page";
 import { Cart } from "./components/Carts";
 import { Routes, Route } from "react-router-dom";
 import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
+import { Header } from "./components/navigation/Header";
 import Profile from "./components/Profile";
 import Checkout from "./components/Checkout";
 import Orders from "./components/Orders";
 import AdminAddEditProduct from "./components/AdminAddEditProduct";
 import AdminManageProducts from "./components/AdminManageProducts";
+import { CategoryAll } from "./components/CategoryAll";
+import OrderDetails from "./components/OrderDetails";
 const alwaysCentered = {
   display: "flex",
   alignItems: "center",
@@ -36,6 +38,7 @@ function App() {
           <Route path="/" element={<Home />}></Route>
           <Route path="/checkout" element={<Checkout />}></Route>
           <Route path="/orders" element={<Orders />}></Route>
+          <Route path="/orders/:id" element={<OrderDetails />}></Route>
           <Route
             path="/admin/add-new-product"
             element={<AdminAddEditProduct />}
@@ -49,6 +52,7 @@ function App() {
             element={<AdminManageProducts />}
           ></Route>
           <Route path="/admin/orders" element={<Orders />}></Route>
+          <Route path="/categories" element={<CategoryAll />}></Route>
         </Routes>
       </div>
       <Footer></Footer>

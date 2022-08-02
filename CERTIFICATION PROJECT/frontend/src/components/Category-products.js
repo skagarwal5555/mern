@@ -27,27 +27,6 @@ export function CategoryProducts(props) {
       });
   };
 
-  const handleFilterClick = (id) => {
-    let filterRow = productFilters.find((item) => item.desc === id);
-    let minVal = filterRow.minVal;
-    let maxVal = filterRow.maxVal;
-
-    let newFilter = products.find(
-      (item) => item.price >= minVal && item.price < maxVal
-    );
-
-    if (newFilter === undefined) {
-      setFilteredProducts([]);
-    } else {
-      if (newFilter instanceof Array) {
-        newFilter = newFilter;
-      } else {
-        newFilter = [newFilter];
-      }
-      setFilteredProducts(newFilter);
-    }
-  };
-
   useEffect(() => {
     loadProducts();
   }, []);
@@ -60,9 +39,11 @@ export function CategoryProducts(props) {
         </Row>
         <ul>
           {productFilters.map((item) => (
-            <li onClick={handleFilterClick.bind(this, item.desc)}>
-              {item.desc}
-            </li>
+            <ProductFilter
+              priceRange={item}
+              products={products}
+              setFilteredProducts={setFilteredProducts}
+            ></ProductFilter>
           ))}
         </ul>
       </Col>
@@ -83,5 +64,38 @@ export function CategoryProducts(props) {
         </Row>
       </Col>
     </Row>
+  );
+}
+
+export function ProductFilter({ products, priceRange, setFilteredProducts }) {
+  let [selectedRange, setSelectedRange] = useState("");
+
+  const handleFilterClick = (id) => {
+    let filterRow = productFilters.find((item) => item.desc === id);
+    let minVal = filterRow.minVal;
+    let maxVal = filterRow.maxVal;
+
+    let newFilter = products.find(
+      (item) => item.price >= minVal && item.price < maxVal
+    );
+
+    if (newFilter === undefined) {
+      setFilteredProducts([]);
+    } else {
+      if (!(newFilter instanceof Array)) {
+        newFilter = [newFilter];
+      }
+      setFilteredProducts(newFilter);
+    }
+    setSelectedRange(id);
+  };
+  return (
+    <li
+      onClick={handleFilterClick.bind(this, priceRange.desc)}
+      className={selectedRange === priceRange.desc ? "active" : ""}
+      style={{ cursor: "pointer" }}
+    >
+      {priceRange.desc}
+    </li>
   );
 }

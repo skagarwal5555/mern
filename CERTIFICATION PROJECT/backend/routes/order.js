@@ -53,14 +53,14 @@ router.post("/", async (req, res, next) => {
   } else {
     //guest user
     //create an ordered cart
-    const cartData = new Cart({
+    let cartData = new Cart({
       items: req.body.cart,
-      email: req.user.email,
+      email: req.body.user.email,
       isGuestUser: true,
       isOrdered: true,
     });
 
-    await cartData.save();
+    cartData = await cartData.save();
 
     //save order
     var orderObj = new Order({
@@ -70,7 +70,7 @@ router.post("/", async (req, res, next) => {
       isGuestUser: true,
       address: req.body.user.address,
       orderNumber: Date.now() + Math.random(),
-      cartId: cartData,
+      cartId: cartData._id,
     });
     await orderObj.save();
 
@@ -87,6 +87,9 @@ router.get("/", auth, async (req, res, next) => {
       path: "cartId",
       populate: {
         path: "items.productId",
+        populate: {
+          path: "category",
+        },
       },
     });
     console.log(orders);
@@ -99,6 +102,49 @@ router.get("/", auth, async (req, res, next) => {
       path: "cartId",
       populate: {
         path: "items.productId",
+        populate: {
+          path: "category",
+        },
+      },
+    });
+    if (orders.length != 0) {
+      res.status(200).json({
+        status: "success",
+        orders,
+      });
+    } else {
+      res.status(200).json({
+        status: "success",
+        message: "No Orders Found",
+      });
+    }
+  }
+});
+
+router.get("/:id", auth, async (req, res, next) => {
+  if (req.user.isAdmin) {
+    var orders = await Order.findOne({ _id: req.params.id }).populate({
+      path: "cartId",
+      populate: {
+        path: "items.productId",
+        populate: {
+          path: "category",
+        },
+      },
+    });
+    console.log(orders);
+    res.status(200).json({
+      status: "success",
+      orders,
+    });
+  } else {
+    var orders = await Order.findOne({ _id: req.params.id }).populate({
+      path: "cartId",
+      populate: {
+        path: "items.productId",
+        populate: {
+          path: "category",
+        },
       },
     });
     if (orders.length != 0) {

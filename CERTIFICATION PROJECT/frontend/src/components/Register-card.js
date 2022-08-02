@@ -11,7 +11,7 @@ export function RegisterCard() {
   let [isNotCreated, setIsNotCreated] = useState(false);
   let [isCreated, setIsCreated] = useState(false);
   let [isPasswordMatch, setIsPasswordMatch] = useState(true);
-
+  let [validationError, setValidationError] = useState("");
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event, {
@@ -42,6 +42,14 @@ export function RegisterCard() {
       .catch((err) => {
         console.log(err);
         setIsNotCreated(true);
+        if (err.response.data.message !== undefined)
+          setValidationError(err.response.data.message);
+        else {
+          let errMsg = err.response.data.errors
+            .map((item) => item.msg)
+            .join("\r\n");
+          setValidationError(errMsg);
+        }
       });
   };
 
@@ -51,7 +59,7 @@ export function RegisterCard() {
         <div className="alert alert-success">User registered successfully</div>
       )}
       {isNotCreated && (
-        <div className="alert alert-danger">User registeration failed</div>
+        <div className="alert alert-danger">{validationError}</div>
       )}
       <Form onSubmit={handleSubmit}>
         <Card>

@@ -1,33 +1,20 @@
 import { NavLink } from "react-router-dom";
-import shop24x7Logo from "../static/logo_wordmark.png";
-import { useSelector } from "react-redux";
-import cartIcon from "../static/cartIcon.png";
-export function Header() {
-  var token = useSelector((state) => state.auth.acessToken);
-  console.log(token);
+import shop24x7Logo from "../../static/logo_wordmark.png";
+
+function AdminNavigation({ auth }) {
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-info">
         <a className="navbar-brand" href="/">
           {<img src={shop24x7Logo} alt="navbar-brand" width="30" height="30" />}
           shop24X7
         </a>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <form className="form-inline mr-auto my-2 my-lg-0 mr-2">
-            <input
-              type="search"
-              className="form-control mr-sm-2"
-              name="searchBar"
-              id="searchBar"
-            />
-            <button
-              className="btn btn-outline-light my-2 my-sm-0"
-              aria-label="btn"
-            >
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </button>
-          </form>
+        <div
+          className="collapse navbar-collapse  mr-auto"
+          id="navbarSupportedContent"
+        >
+          <form className="form-inline mr-auto my-2 my-lg-0 mr-2"></form>
           <ul className="navbar-nav">
             <li className="nav-item">
               <NavLink to="/admin/orders" className="nav-link">
@@ -35,10 +22,7 @@ export function Header() {
               </NavLink>
             </li>
           </ul>
-          <ul
-            className="navbar-nav"
-            style={{ display: token !== "" ? "block" : "none" }}
-          >
+          <ul className="navbar-nav">
             <li className="nav-item dropdown">
               <a
                 href="/"
@@ -67,27 +51,16 @@ export function Header() {
                 Home
               </NavLink>
             </li>
-
-            <li className="nav-item">
-              <NavLink to="/products" className="nav-link">
-                Departments
-              </NavLink>
-            </li>
-            <li style={{ display: token !== "" ? "none" : "block" }}>
+            <li style={{ display: auth.acessToken !== "" ? "none" : "block" }}>
               <NavLink to="/login" className="nav-link">
                 Login
-              </NavLink>
-            </li>
-            <li style={{ cursor: "pointer" }}>
-              <NavLink to="/cart" className="nav-link">
-                <img src={cartIcon} alt="navbar-brand" width="30" height="30" />
               </NavLink>
             </li>
           </ul>
 
           <ul
             className="navbar-nav"
-            style={{ display: token !== "" ? "block" : "none" }}
+            style={{ display: auth.acessToken !== "" ? "block" : "none" }}
           >
             <li className="nav-item dropdown">
               <a
@@ -108,13 +81,7 @@ export function Header() {
                   <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
                 </svg>
               </a>
-              <div className="dropdown-menu dropdown-menu-right bg-primary">
-                <NavLink
-                  to="/orders"
-                  className="nav-link nav-item navbar-dark nav-link"
-                >
-                  My Orders
-                </NavLink>
+              <div className="dropdown-menu dropdown-menu-right bg-info">
                 <NavLink to="/Profile" className="nav-link nav-item">
                   My Profile
                 </NavLink>
@@ -130,3 +97,5 @@ export function Header() {
     </div>
   );
 }
+
+export default AdminNavigation;

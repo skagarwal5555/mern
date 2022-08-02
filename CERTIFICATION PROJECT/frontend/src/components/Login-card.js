@@ -1,39 +1,80 @@
-import { Card, Button, Form } from "react-bootstrap";
+import { Card, Button, Form, Row } from "react-bootstrap";
 import { useState } from "react";
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { signInSuccess } from "../redux/actions/authActions";
 import store from "../redux/store/store";
+import { useSelector } from "react-redux";
+import { useNavigate, NavLink } from "react-router-dom";
+import { setProfile } from "../redux/actions/profileActions";
+import { setCartItems } from "../redux/actions/cartActions";
+import axios from "axios";
 
 export function LoginCard() {
   const navigate = useNavigate();
+  let state = useSelector((state) => state);
+  console.log(state);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isFailed, setIsFailed] = useState(false);
+  let accessToken = "";
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  async function Login() {
     let data = { email, password };
-    console.log(data);
     await axios
       .post("http://localhost:8081/api/v1/users/login", data)
       .then((response) => {
-        console.log("Response" + response.data);
+        console.log(response.data);
         if (response.data.status === "Success") {
-          store.dispatch(signInSuccess(response.data.accessToken));
-          console.log("Redirect to Home page");
-          navigate("/");
-        } else {
-          console.log("else" + response.data);
-          setIsFailed(true);
+          accessToken = response.data.accessToken;
         }
       })
+      .then(async () => {
+        const config = {
+          headers: { token: accessToken },
+        };
+        console.log(config);
+        await axios
+          .post("http://localhost:8081/api/v1/profile", "", config)
+          .then((res) => {
+            console.log(res);
+            if (res.data.status === "success") {
+              let user = res.data.profile;
+              store.dispatch(setProfile(user));
+              store.dispatch(signInSuccess(accessToken, user.isAdmin));
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .then(async () => {
+        const config = {
+          headers: { token: accessToken },
+        };
+        await axios
+          .get("http://localhost:8081/api/v1/cart", config)
+          .then((res) => {
+            console.log(res);
+            if (res.data.status === "success") {
+              if (res.data.cart !== undefined && res.data.cart.length !== 0) {
+                store.dispatch(setCartItems(res.data.cart.items));
+              }
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
       .catch((err) => {
-        if (err.response.status === 400) {
-        }
         console.log("Catch" + err.response.status);
         setIsFailed(true);
+        //return err;
       });
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    await Login();
+    if (accessToken !== "") navigate("/");
   };
   const handleEmail = (event) => {
     setIsFailed(false);
@@ -85,10 +126,19 @@ export function LoginCard() {
             ) : (
               ""
             )}
+            <Row className="ml-1">
+              <Button
+                data-testid="login-submit"
+                variant="primary"
+                type="submit"
+              >
+                Login
+              </Button>
+              <NavLink to="/register" className="nav-link">
+                Sign Up
+              </NavLink>
+            </Row>
           </Card.Text>
-          <Button data-testid="login-submit" variant="primary" type="submit">
-            Login
-          </Button>
         </Card.Body>
       </Card>
     </Form>

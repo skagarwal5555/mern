@@ -42,16 +42,34 @@ router.get("/categories", async (req, res) => {
   }
 });
 
+router.get("/Allcategories", async (req, res) => {
+  try {
+    const categories = await Categories.find();
+    res.status(200).json({
+      status: "success",
+      categories,
+    });
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .json({ message: "categories couldnt be fetched for homepage" });
+  }
+});
+
 router.get("/products", async (req, res) => {
   try {
     var products = await Product.aggregate([
       {
         $lookup: {
-          from: "category",
+          from: "categories",
           localField: "category",
           foreignField: "_id",
-          as: "categoryList",
+          as: "category",
         },
+      },
+      {
+        $unwind: "$category",
       },
       { $sample: { size: 8 } },
     ]);
