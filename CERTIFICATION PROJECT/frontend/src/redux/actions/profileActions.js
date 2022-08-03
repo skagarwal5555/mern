@@ -1,7 +1,6 @@
 import {
   CLEAR_PROFILE,
   SET_PROFILE,
-  UPDATE_EMAIL,
   UPDATE_PROFILE,
   UPDATE_PROFILE_SUCCESS,
 } from "../../constants/constants";
@@ -13,14 +12,6 @@ export const clearProfile = () => ({
 export const setProfile = (user) => ({
   type: SET_PROFILE,
   payload: user,
-});
-
-export const updateEmail = (password, newEmail) => ({
-  type: UPDATE_EMAIL,
-  payload: {
-    password,
-    newEmail,
-  },
 });
 
 export const updateProfile = (newProfile) => ({

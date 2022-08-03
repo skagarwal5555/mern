@@ -1,55 +1,38 @@
 import React from "react";
-import { Container, Form, Button } from "react-bootstrap";
-import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Container, Form, Button, Breadcrumb } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import store from "../../redux/store/store";
+import { addProduct, editProduct } from "../../redux/actions/productActions";
 
 function AdminAddEditProduct() {
+  const navigate = useNavigate();
   let { product_id } = useParams();
-  console.log("product_id" + product_id);
-  let [product, setProduct] = useState({
-    name: "",
-    price: "",
-    description: "",
-    productImage: "",
-    discountPrice: "",
-    category: {
-      name: "",
-    },
-  });
+  let Token = useSelector((state) => state.auth.acessToken);
 
-  useEffect(() => {
-    if (product_id !== undefined && product_id.length > 0) {
-      console.log("P" + product_id);
-      //call api to get product
-      async function loadProduct() {
-        await axios
-          .get(`http://localhost:8081/api/v1/products/${product_id}`)
-          .then((res) => {
-            console.log(res);
-            if (res.data.status === "success") {
-              setProduct(res.data.product);
-            }
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      }
-      loadProduct();
-    } else {
-      console.log("In else");
-      setProduct({
-        name: "",
-        price: "",
-        description: "",
-        productImage: "",
-        discountPrice: "",
-        category: {
+  const objProduct = useSelector((state) =>
+    state.products.find((item) => item._id === product_id)
+  );
+
+  let [isSuccess, setisSuccess] = useState("");
+  let [isFailure, setisFailure] = useState("");
+
+  let [product, setProduct] = useState(
+    objProduct !== undefined
+      ? objProduct
+      : {
           name: "",
-        },
-      });
-    }
-  }, [product_id]);
+          price: "",
+          description: "",
+          productImage: "",
+          discountPrice: "",
+          category: {
+            name: "",
+          },
+        }
+  );
 
   const handleChange = (e) => {
     if (e.target.name === "category.name") {
@@ -60,6 +43,11 @@ function AdminAddEditProduct() {
           name: e.target.value,
         },
       }));
+    } else if (e.target.name === "isTopProduct") {
+      setProduct((prevState) => ({
+        ...prevState,
+        [e.target.name]: e.target.checked,
+      }));
     } else {
       setProduct((prevState) => ({
         ...prevState,
@@ -68,17 +56,83 @@ function AdminAddEditProduct() {
     }
   };
 
-  const handleCheckOutSubmit = () => {};
+  const handleUpdateProduct = async (event) => {
+    event.preventDefault();
+    const config = {
+      headers: { token: Token },
+    };
+
+    if (product._id !== undefined) {
+      await axios
+        .patch("http://localhost:8081/api/v1/admin/products", product, config)
+        .then((res) => {
+          if (res.data.status === "success") {
+            store.dispatch(editProduct(product));
+            setisSuccess("Product Updated Successfully");
+            setisFailure("");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setisFailure("Product Updated Failed");
+          setisSuccess("");
+        });
+    } else {
+      await axios
+        .post("http://localhost:8081/api/v1/admin/products", product, config)
+        .then((res) => {
+          console.log(res);
+          if (res.status === 201) {
+            store.dispatch(addProduct(res.data.data));
+            setisSuccess("Product created Successfully");
+            setisFailure("");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          setisFailure("Product creation Failed");
+          setisSuccess("");
+        });
+    }
+  };
+
+  const handleManageProductsClick = () => {
+    navigate("/admin/products");
+  };
   return (
     <Container className="w-50">
       <div className="mt-4">
+        <Breadcrumb>
+          <Breadcrumb.Item href="#" onClick={handleManageProductsClick}>
+            Manage Products
+          </Breadcrumb.Item>
+          <Breadcrumb.Item active>Product</Breadcrumb.Item>
+        </Breadcrumb>
+        <div
+          className="bg-success mb-2"
+          style={{
+            textAlign: "center",
+            display: isSuccess.length > 0 ? "block" : "none",
+          }}
+        >
+          {isSuccess}
+        </div>
+        <div
+          className="bg-danger mb-2"
+          style={{
+            textAlign: "center",
+            display: isFailure.length > 0 ? "block" : "none",
+          }}
+        >
+          {isFailure}
+        </div>
         <div>
           {product_id !== undefined && product_id.length > 0 && (
             <strong>Edit Product</strong>
           )}
           {product_id === undefined && <strong>Add new Product</strong>}
         </div>
-        <Form onSubmit={handleCheckOutSubmit}>
+        <Form onSubmit={handleUpdateProduct}>
           <Form.Group className="mb-3 mt-3" controlId="formBasicProductName">
             <Form.Label>Product Name</Form.Label>
             <Form.Control
@@ -148,8 +202,10 @@ function AdminAddEditProduct() {
           <Form.Group className="mb-3" controlId="formBasicTopSellingProduct">
             <Form.Check
               type="checkbox"
-              id="isTopProduct"
+              name="isTopProduct"
               label="Top Selling Product"
+              checked={product.isTopProduct}
+              onChange={handleChange}
             />
           </Form.Group>
           {product_id !== undefined && product_id.length > 0 && (

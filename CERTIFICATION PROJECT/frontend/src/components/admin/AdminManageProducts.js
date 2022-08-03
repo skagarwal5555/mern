@@ -1,13 +1,18 @@
 import React from "react";
-import { Container } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import AdminProductRow from "./AdminProductRow";
+import { setProducts } from "../../redux/actions/productActions";
+import store from "../../redux/store/store";
+import { useNavigate } from "react-router-dom";
 
 function AdminManageProducts() {
+  const navigate = useNavigate();
   const Token = useSelector((state) => state.auth.acessToken);
-  let [products, SetOrder] = useState([]);
+  const products = useSelector((state) => state.products);
+
   const loadAllProducts = async () => {
     const config = {
       headers: { token: Token },
@@ -17,7 +22,7 @@ function AdminManageProducts() {
       .then((res) => {
         console.log(res);
         if (res.data.status === "success") {
-          SetOrder(res.data.products);
+          store.dispatch(setProducts(res.data.products));
         }
       })
       .catch((err) => {
@@ -26,13 +31,20 @@ function AdminManageProducts() {
   };
 
   useEffect(() => {
-    loadAllProducts();
+    if (products === undefined || products.length === 0) {
+      loadAllProducts();
+    }
   }, []);
+
+  const handleAddNewProductClick = () => {
+    navigate("/admin/add-new-product");
+  };
   return (
     <Container className="w-50">
       <div className="mt-4 mb-5">
         <div>
-          <strong>Manage Products</strong>
+          <strong>Manage Products</strong> &nbsp;
+          <Button onClick={handleAddNewProductClick}>Add new Product</Button>
         </div>
       </div>
       {products !== undefined && products.length > 0 ? (

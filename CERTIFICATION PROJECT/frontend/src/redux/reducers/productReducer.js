@@ -1,66 +1,25 @@
 import {
-  ADD_PRODUCT_SUCCESS,
-  EDIT_PRODUCT_SUCCESS,
-  GET_PRODUCTS_SUCCESS,
-  REMOVE_PRODUCT_SUCCESS,
-  SEARCH_PRODUCT_SUCCESS,
+  ADD_PRODUCT,
+  EDIT_PRODUCT,
+  REMOVE_PRODUCT,
+  SET_PRODUCTS,
 } from "../../constants/constants";
 
-const initState = {
-  lastRefKey: null,
-  total: 0,
-  items: [],
-};
-
-function productReducer(
-  state = {
-    lastRefKey: null,
-    total: 0,
-    items: [],
-    searchedProducts: initState,
-  },
-  action
-) {
+function productReducer(state = [], action) {
   switch (action.type) {
-    case GET_PRODUCTS_SUCCESS:
-      return {
-        ...state,
-        lastRefKey: action.payload.lastKey,
-        total: action.payload.total,
-        items: [...state.items, ...action.payload.products],
-      };
-    case ADD_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        items: [...state.items, action.payload],
-      };
-    case SEARCH_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        searchedProducts: {
-          lastRefKey: action.payload.lastKey,
-          total: action.payload.total,
-          items: [...state.searchedProducts.items, ...action.payload.products],
-        },
-      };
-    case REMOVE_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        items: state.items.filter((product) => product.id !== action.payload),
-      };
-    case EDIT_PRODUCT_SUCCESS:
-      return {
-        ...state,
-        items: state.items.map((product) => {
-          if (product.id === action.payload.id) {
-            return {
-              ...product,
-              ...action.payload.updates,
-            };
-          }
-          return product;
-        }),
-      };
+    case SET_PRODUCTS:
+      return action.payload;
+    case ADD_PRODUCT:
+      return [action.payload, ...state];
+    case REMOVE_PRODUCT:
+      return state.filter((item) => item._id !== action.payload);
+    case EDIT_PRODUCT:
+      return state.map((product) => {
+        if (product._id === action.payload._id) {
+          return action.payload;
+        }
+        return product;
+      });
     default:
       return state;
   }

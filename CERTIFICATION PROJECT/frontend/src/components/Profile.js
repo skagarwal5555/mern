@@ -2,14 +2,16 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Card, Row, Col, Form, Button } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import shop24X7 from "../static/logo_wordmark.png";
+import profileIcon from "../static/profile_icon.png";
+import { useRef } from "react";
+import store from "../redux/store/store";
 
 function Profile() {
+  const inputRef = useRef(null);
   console.log(useSelector((state) => state));
   const profileState = useSelector((state) => state.profile);
   const token = useSelector((state) => state.auth.acessToken);
   let [profile, setProfile] = useState(profileState);
-
   const addressChangeHandler = (e) => {
     setProfile((prevState) => ({
       ...prevState,
@@ -62,12 +64,12 @@ function Profile() {
       return null;
     }
     await axios
-      .delete("http://localhost:8081/api/v1/profile/image", "", config)
+      .delete("http://localhost:8081/api/v1/profile/image", config)
       .then((res) => {
         console.log(res);
         setProfile((prevState) => ({
           ...prevState,
-          "profileImage ": "",
+          profileImage: "",
         }));
       })
       .catch((err) => {
@@ -75,21 +77,45 @@ function Profile() {
       });
   };
 
+  const handleUploadImageClick = (event) => {
+    event.preventDefault();
+    inputRef.current.click();
+  };
+
   const handleUpdateProfileImage = async (event) => {
     event.preventDefault();
+
+    const fileObj = event.target.files && event.target.files[0];
+    if (!fileObj) {
+      return;
+    }
+    let formData = new FormData();
+
+    // Update the formData object
+    formData.append("profileImage", fileObj);
     const config = {
-      headers: { token: token },
+      headers: { token: token, "Content-Type": "multipart/form-data" },
     };
     console.log(event.target.value);
-    const data = { profileImage: event.target.value };
+    const data = { profileImage: fileObj };
     await axios
-      .patch("http://localhost:8081/api/v1/profile/image", data, config)
+      .patch("http://localhost:8081/api/v1/profile/image", formData, config)
       .then((res) => {
-        console.log(res);
-        setProfile((prevState) => ({
-          ...prevState,
-          "profileImage ": data.profileImage,
-        }));
+        const configHeader = {
+          headers: { token: token },
+        };
+        axios
+          .post("http://localhost:8081/api/v1/profile", "", configHeader)
+          .then((res) => {
+            console.log(res);
+            if (res.data.status === "success") {
+              let user = res.data.profile;
+              store.dispatch(setProfile(user));
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
       })
       .catch((err) => {
         console.log(err);
@@ -97,29 +123,34 @@ function Profile() {
   };
   return (
     <div className="w-75">
-      <Form onSubmit={handleAddressChange}>
+      <Form>
         <Row className="mt-4">
           <Col>
             <Card>
               <Card.Body>
                 <Card.Text>
                   <Row>
-                    <Col md={6}>
+                    <Col md={4}>
                       <Row>
                         <Col md={10} className="content-align-center">
-                          {profile.profileImage !== undefined ? (
+                          {profile.profileImage !== undefined &&
+                          profile.profileImage.length > 0 ? (
                             <img
                               src={profile.profileImage}
                               className="rounded-circle"
                               alt={profile.profileImage}
                               data-testid="profile-image"
+                              height="200"
+                              width="200"
                             ></img>
                           ) : (
                             <img
-                              src={shop24X7}
+                              src={profileIcon}
                               className="rounded-circle"
-                              alt={shop24X7}
+                              alt={profileIcon}
                               data-testid="profile-image"
+                              height="200"
+                              width="200"
                             ></img>
                           )}
                         </Col>
@@ -133,8 +164,8 @@ function Profile() {
                           </Col>
                         </Row>
                       )}
-                      <Row>
-                        <Col md={6}>
+                      <Row className="mt-3">
+                        <Col md={8}>
                           <Button
                             variant="warning"
                             type="button"
@@ -142,21 +173,20 @@ function Profile() {
                             onClick={handleDeleteProfileImage}
                           >
                             Delete Image
-                          </Button>
-                        </Col>
-                        <Col md={6}>
+                          </Button>{" "}
+                          &nbsp;
                           <Button
                             variant="primary"
                             type="file"
                             data-testid="profile-upload-button"
-                            onClick={handleUpdateProfileImage}
+                            onClick={handleUploadImageClick}
                           >
                             Upload
                           </Button>
-                          <Form.Control
+                          <input
+                            style={{ display: "none" }}
+                            ref={inputRef}
                             type="file"
-                            variant="primary"
-                            data-testid="profile-upload-button"
                             onChange={handleUpdateProfileImage}
                           />
                         </Col>
@@ -312,6 +342,7 @@ function Profile() {
                               variant="primary"
                               type="submit"
                               style={{ display: isEditing ? "block" : "none" }}
+                              onClick={handleAddressChange}
                             >
                               Save
                             </Button>

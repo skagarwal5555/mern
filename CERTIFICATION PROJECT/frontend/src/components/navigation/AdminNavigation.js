@@ -17,6 +17,18 @@ function AdminNavigation({ auth }) {
           <form className="form-inline mr-auto my-2 my-lg-0 mr-2"></form>
           <ul className="navbar-nav">
             <li className="nav-item">
+              <NavLink to="/" className="nav-link">
+                Home
+              </NavLink>
+            </li>
+            <li style={{ display: auth.acessToken !== "" ? "none" : "block" }}>
+              <NavLink to="/login" className="nav-link">
+                Login
+              </NavLink>
+            </li>
+          </ul>
+          <ul className="navbar-nav">
+            <li className="nav-item">
               <NavLink to="/admin/orders" className="nav-link">
                 Orders
               </NavLink>
@@ -32,7 +44,7 @@ function AdminNavigation({ auth }) {
               >
                 <strong>Product</strong>
               </a>
-              <div className="dropdown-menu dropdown-menu-right bg-primary">
+              <div className="dropdown-menu dropdown-menu-right bg-info">
                 <NavLink
                   to="/admin/add-new-product"
                   className="nav-link nav-item navbar-dark nav-link"
@@ -45,19 +57,6 @@ function AdminNavigation({ auth }) {
               </div>
             </li>
           </ul>
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <NavLink to="/" className="nav-link">
-                Home
-              </NavLink>
-            </li>
-            <li style={{ display: auth.acessToken !== "" ? "none" : "block" }}>
-              <NavLink to="/login" className="nav-link">
-                Login
-              </NavLink>
-            </li>
-          </ul>
-
           <ul
             className="navbar-nav"
             style={{ display: auth.acessToken !== "" ? "block" : "none" }}

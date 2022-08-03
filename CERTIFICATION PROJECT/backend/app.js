@@ -35,8 +35,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/public", express.static("public"));
 
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/admin/orders", orderRouter);
 app.use("/api/v1/checkout", orderRouter);
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/users", usersRouter);

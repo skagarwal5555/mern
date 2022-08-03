@@ -9,7 +9,6 @@ const { check, validationResult } = require("express-validator/check");
 router.post(
   "/",
   [
-    check("pid", "Please Enter a product Id").not().isEmpty(),
     check("name", "Please Enter a product name").not().isEmpty(),
     check("productImage", "Please provide product image link").not().isEmpty(),
     check("description", "Please Enter a description").not().isEmpty(),
@@ -26,21 +25,18 @@ router.post(
         try {
           //get data from request body
           const {
-            pid,
             name,
             price,
-            category,
             discountPrice,
             productImage,
             description,
-            color,
-            material,
-            size,
             isTopProduct,
           } = req.body;
-
+          console.log(req.body.category.name);
           //check if category exists
-          var objCategory = await Category.findOne({ name: category });
+          var objCategory = await Category.findOne({
+            name: req.body.category.name,
+          });
           //if category doesnt exist , create one
           if (objCategory === null) {
             objCategory = new Category({
@@ -50,15 +46,11 @@ router.post(
           }
           //create product object
           const product = new Product({
-            pid,
             name,
             price,
             discountPrice,
             productImage,
             description,
-            color,
-            material,
-            size,
             isTopProduct,
           });
           //assign category to product
@@ -99,9 +91,8 @@ router.delete("/:id", auth, async (req, res) => {
 
 //update product
 router.patch(
-  "/:id",
+  "/",
   [
-    check("pid", "Please Enter a product Id").not().isEmpty(),
     check("name", "Please Enter a product name").not().isEmpty(),
     check("productImage", "Please provide product image link").not().isEmpty(),
     check("description", "Please Enter a description").not().isEmpty(),
@@ -110,7 +101,7 @@ router.patch(
   ],
   auth,
   async (req, res) => {
-    const id = req.params.id;
+    const id = req.body._id;
     if (req.user !== null && req.user.isAdmin) {
       const errors = validationResult(req);
       if (!errors.isEmpty()) {
@@ -129,15 +120,11 @@ router.patch(
             { _id: id },
             {
               $set: {
-                pid: req.body.pid,
                 name: req.body.name,
                 price: req.body.price,
                 discountPrice: req.body.discountPrice,
                 productImage: req.body.productImage,
                 description: req.body.description,
-                color: req.body.color,
-                material: req.body.material,
-                size: req.body.size,
                 isTopProduct: req.body.isTopProduct,
                 category: objCategory,
               },

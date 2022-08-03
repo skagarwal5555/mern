@@ -161,9 +161,9 @@ router.get("/:id", auth, async (req, res, next) => {
   }
 });
 
-router.patch("/:id", auth, async (req, res) => {
+router.patch("/", auth, async (req, res) => {
   if (req.user !== null && req.user.isAdmin) {
-    var orderObj = await Order.findById(req.params.id);
+    var orderObj = await Order.findById(req.body.id);
     console.log(orderObj);
     if (orderObj.length !== 0) {
       orderObj.isDelivered = true;
@@ -185,13 +185,17 @@ router.patch("/:id", auth, async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
-  Order.findByIdAndRemove(req.params.id, (err, result) => {
-    if (err) throw err;
-    return res.status(200).json({
-      status: "success",
-      message: "Order deleted successfully",
+  if (req.user !== null && req.user.isAdmin) {
+    Order.findByIdAndRemove(req.params.id, (err, result) => {
+      if (err) throw err;
+      return res.status(200).json({
+        status: "success",
+        message: "Order deleted successfully",
+      });
     });
-  });
+  } else {
+    res.status(403).json({ message: "Access Denied" });
+  }
 });
 
 module.exports = router;

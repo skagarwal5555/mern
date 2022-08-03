@@ -2,7 +2,7 @@ import authReducer from "./authReducer";
 import cartReducer from "./cartReducer";
 import productReducer from "./productReducer";
 import profileReducer from "./profileReducer";
-import userReducer from "./userReducer";
+import orderReducer from "./orderReducer";
 import { combineReducers } from "redux";
 
 const rootReducer = combineReducers({
@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
   cart: cartReducer,
   auth: authReducer,
   profile: profileReducer,
-  users: userReducer,
+  order: orderReducer,
 });
 
 export default rootReducer;

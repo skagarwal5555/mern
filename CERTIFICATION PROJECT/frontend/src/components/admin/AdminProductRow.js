@@ -3,6 +3,8 @@ import { Row, Col, Button } from "react-bootstrap";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import store from "../../redux/store/store";
+import { removeProduct } from "../../redux/actions/productActions";
 
 function AdminProductRow({ product }) {
   const navigate = useNavigate();
@@ -23,9 +25,7 @@ function AdminProductRow({ product }) {
       .then((res) => {
         console.log(res);
         if (res.data.status === "success") {
-          if (res.data.cart.length !== 0) {
-            //update cart
-          }
+          store.dispatch(removeProduct(product._id));
         }
       })
       .catch((err) => {

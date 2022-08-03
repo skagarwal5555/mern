@@ -1,15 +1,18 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import OrderRow from "./OrderRow";
+import { setOrders } from "../../redux/actions/orderActions";
+import store from "../../redux/store/store";
+import axios from "axios";
 
 function Orders() {
+  console.log(useSelector((state) => state));
   const Token = useSelector((state) => state.auth.acessToken);
-  let [orders, SetOrder] = useState([]);
-  console.log(Token);
-  const loadUserOrders = async () => {
+  const orders = useSelector((state) => state.order);
+
+  async function loadOrders() {
     const config = {
       headers: { token: Token },
     };
@@ -19,16 +22,20 @@ function Orders() {
       .then((res) => {
         console.log(res);
         if (res.data.status === "success") {
-          SetOrder(res.data.orders);
+          //SetOrder(res.data.orders);
+          store.dispatch(setOrders(res.data.orders));
         }
       })
       .catch((err) => {
         console.log(err);
       });
-  };
+  }
 
   useEffect(() => {
-    loadUserOrders();
+    async function fetchData() {
+      await loadOrders(Token);
+    }
+    fetchData();
   }, []);
 
   return (

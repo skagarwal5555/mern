@@ -31,7 +31,6 @@ export function LoginCard() {
         const config = {
           headers: { token: accessToken },
         };
-        console.log(config);
         await axios
           .post("http://localhost:8081/api/v1/profile", "", config)
           .then((res) => {

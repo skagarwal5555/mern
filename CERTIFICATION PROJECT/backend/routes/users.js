@@ -5,6 +5,32 @@ const auth = require("../middleware/auth");
 const { check, validationResult } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const DIR = "./public/";
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, DIR);
+  },
+  filename: (req, file, cb) => {
+    const fileName = file.originalname.toLowerCase().split(" ").join("-");
+    cb(null, fileName);
+  },
+});
+var upload = multer({
+  storage: storage,
+  fileFilter: (req, file, cb) => {
+    if (
+      file.mimetype == "image/png" ||
+      file.mimetype == "image/jpg" ||
+      file.mimetype == "image/jpeg"
+    ) {
+      cb(null, true);
+    } else {
+      cb(null, false);
+      return cb(new Error("Only .png, .jpg and .jpeg format allowed!"));
+    }
+  },
+});
 
 router.post(
   "/register",
@@ -138,26 +164,33 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-router.patch("/image", auth, async (req, res) => {
-  try {
-    const userObj = await User.findById(req.user.id);
-    userObj.profileImage = req.body.profileimage;
+router.patch(
+  "/image",
+  auth,
+  upload.single("profileImage"),
+  async (req, res) => {
+    try {
+      const url = req.protocol + "://" + req.get("host");
+      let fullFileName = url + "/public/" + req.file.filename;
+      const userObj = await User.findById(req.user.id);
 
-    await User.findOneAndUpdate({ _id: req.user.id }, userObj, {
-      upsert: true,
-    });
+      userObj.profileImage = fullFileName;
 
-    res.status(200).json({
-      status: "success",
-      message: "profile image updated successfully",
-    });
-  } catch (error) {
-    console.log(error);
-    res
-      .status(500)
-      .json({ success: false, message: "Could not update profile image" });
+      await User.findOneAndUpdate({ _id: req.user.id }, userObj, {
+        upsert: true,
+      });
+      res.status(200).json({
+        status: "success",
+        message: "profile image updated successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Could not update profile image" });
+    }
   }
-});
+);
 
 router.patch("/address", auth, async (req, res) => {
   try {
