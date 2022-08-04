@@ -175,7 +175,12 @@ function Checkout() {
             </Form.Group>
           </div>
           <div>
-            <Button variant="primary" type="submit" className="pull-right mb-5">
+            <Button
+              variant="primary"
+              type="submit"
+              className="pull-right mb-5"
+              data-testid="checkout-button"
+            >
               Place Order
             </Button>
           </div>

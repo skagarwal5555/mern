@@ -31,7 +31,12 @@ export function Cart() {
         <div>
           <Row className="justify-content-end">
             <Col style={{ alignItems: "end" }} className="col-4">
-              <Button variant="light" type="button" disabled>
+              <Button
+                variant="light"
+                type="button"
+                disabled
+                data-testid="cart-grand-total"
+              >
                 Grand Total $
                 {cartItems.reduce((accumulator, object) => {
                   return (
@@ -46,7 +51,12 @@ export function Cart() {
           </Row>
           <Row className="mb-5 justify-content-end">
             <Col style={{ alignItems: "end" }} className="col-3">
-              <Button variant="primary" type="button" onClick={checkout}>
+              <Button
+                variant="primary"
+                type="button"
+                onClick={checkout}
+                data-testid="cart-button"
+              >
                 Checkout
               </Button>
             </Col>

@@ -214,6 +214,7 @@ function AdminAddEditProduct() {
                 variant="primary"
                 type="submit"
                 className="pull-right mb-5"
+                data-testid="update-product-button"
               >
                 Update Product
               </Button>
@@ -225,6 +226,7 @@ function AdminAddEditProduct() {
                 variant="primary"
                 type="submit"
                 className="pull-right mb-5"
+                data-testid="add-new-button"
               >
                 Add New Product
               </Button>

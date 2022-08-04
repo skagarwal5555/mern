@@ -25,7 +25,7 @@ function OrderRow({ order }) {
 
   return (
     <>
-      <Row>
+      <Row data-testid={auth.isAdmin ? "manage-order-row" : "order-row"}>
         <Col md={8}>
           <div>
             <div>

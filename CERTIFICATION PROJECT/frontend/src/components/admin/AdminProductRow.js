@@ -34,7 +34,7 @@ function AdminProductRow({ product }) {
   };
   return (
     <>
-      <Row>
+      <Row data-testid="manage-product-row">
         <Col md={2}>
           <img
             src={product.productImage}

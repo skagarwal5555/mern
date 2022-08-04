@@ -85,6 +85,7 @@ export function ProductPage() {
                   alignSelf: "center",
                 }}
                 className="mt-1 mb-1"
+                data-testid="product-page-banner"
               ></img>
             </Card>
           </Col>
@@ -96,7 +97,7 @@ export function ProductPage() {
                 variant="light"
                 type="button"
                 disabled
-                data-testid="cart-grand-total"
+                data-testid="product-price"
               >
                 ${product.price}
               </Button>
@@ -107,6 +108,7 @@ export function ProductPage() {
                 type="button"
                 onClick={buyNow}
                 className="mr-2"
+                data-testid="product-page-buynow"
               >
                 Buy Now
               </Button>
@@ -114,7 +116,7 @@ export function ProductPage() {
                 variant="primary"
                 type="button"
                 onClick={addToCart}
-                data-testid="cart-button"
+                data-testid="product-page-add-to-cart"
               >
                 Add to cart
               </Button>
