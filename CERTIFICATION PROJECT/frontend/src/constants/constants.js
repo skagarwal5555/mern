@@ -17,11 +17,6 @@ export const SIGNIN_FAILURE = "SIGNIN_FAILURE";
 export const SIGNUP = "SIGNUP";
 export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
 
-export const SIGNOUT = "SIGNOUT";
-export const SIGNOUT_SUCCESS = "SIGNOUT_SUCCESS";
-
-export const RESET_PASSWORD = "RESET_PASSWORD";
-
 export const SET_PROFILE = "SET_PROFILE";
 export const UPDATE_PROFILE = "UPDATE_PROFILE";
 export const UPDATE_PROFILE_SUCCESS = "UPDATE_PROFILE_SUCCESS";
@@ -36,3 +31,5 @@ export const ADD_TO_ORDER = "ADD_TO_ORDER";
 export const REMOVE_ORDER = "REMOVE_ORDER";
 export const CLEAR_ORDERS = "CLEAR_ORDERS";
 export const UPDATE_ORDER = "UPDATE_ORDER";
+
+export const CLEAR_AUTH = "CLEAR_AUTH";

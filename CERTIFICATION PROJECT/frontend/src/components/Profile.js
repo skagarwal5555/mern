@@ -96,8 +96,6 @@ function Profile() {
     const config = {
       headers: { token: token, "Content-Type": "multipart/form-data" },
     };
-    console.log(event.target.value);
-    const data = { profileImage: fileObj };
     await axios
       .patch("http://localhost:8081/api/v1/profile/image", formData, config)
       .then((res) => {

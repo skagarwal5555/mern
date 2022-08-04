@@ -25,13 +25,13 @@ export function ProductPage() {
   const cartItems = useSelector((state) => state.cart);
 
   useEffect(() => {
-    loadProduct();
+    loadProduct(product_id);
     loadRecommendedProducts();
-  }, []);
+  }, [product_id]);
 
-  const loadProduct = async () => {
+  const loadProduct = async (productid) => {
     await axios
-      .get(`http://localhost:8081/api/v1/products/${product_id}`)
+      .get(`http://localhost:8081/api/v1/products/${productid}`)
       .then((res) => {
         if (res.data.status === "success") {
           setProduct(res.data.product);

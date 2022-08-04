@@ -10,15 +10,6 @@ export const signInFailure = (errorMessage) => ({
   payload: { errorMessage: errorMessage },
 });
 
-export const signOut = () => ({
-  type: type.SIGNOUT,
-});
-
-export const signOutSuccess = () => ({
-  type: type.SIGNOUT_SUCCESS,
-});
-
-export const resetPassword = (email) => ({
-  type: type.RESET_PASSWORD,
-  payload: email,
+export const resetAuth = () => ({
+  type: type.CLEAR_AUTH,
 });

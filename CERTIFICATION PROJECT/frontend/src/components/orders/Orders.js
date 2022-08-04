@@ -1,7 +1,7 @@
 import React from "react";
 import { Container } from "react-bootstrap";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import OrderRow from "./OrderRow";
 import { setOrders } from "../../redux/actions/orderActions";
 import store from "../../redux/store/store";
@@ -16,13 +16,11 @@ function Orders() {
     const config = {
       headers: { token: Token },
     };
-    console.log(config);
     await axios
       .get("http://localhost:8081/api/v1/orders", config)
       .then((res) => {
         console.log(res);
         if (res.data.status === "success") {
-          //SetOrder(res.data.orders);
           store.dispatch(setOrders(res.data.orders));
         }
       })

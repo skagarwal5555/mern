@@ -1,11 +1,32 @@
 import { NavLink } from "react-router-dom";
 import shop24x7Logo from "../../static/logo_wordmark.png";
+import store from "../../redux/store/store";
+import { resetAuth } from "../../redux/actions/authActions";
+import { clearCart } from "../../redux/actions/cartActions";
+import { clearOrder } from "../../redux/actions/orderActions";
+import { clearProfile } from "../../redux/actions/profileActions";
+import { setProducts } from "../../redux/actions/productActions";
+import { useNavigate } from "react-router-dom";
 
 function AdminNavigation({ auth }) {
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    //clear states
+    store.dispatch(resetAuth());
+    store.dispatch(clearCart());
+    store.dispatch(clearOrder());
+    store.dispatch(clearProfile());
+    store.dispatch(setProducts([]));
+    navigate("/login");
+  };
+  const handleLogoClick = (event) => {
+    event.preventDefault();
+    navigate("/");
+  };
   return (
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-info">
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="/" onClick={handleLogoClick}>
           {<img src={shop24x7Logo} alt="navbar-brand" width="30" height="30" />}
           shop24X7
         </a>
@@ -85,7 +106,10 @@ function AdminNavigation({ auth }) {
                   My Profile
                 </NavLink>
                 <a href="/" className="dropdown-item">
-                  <div className="dropdown-divider"></div>
+                  <div
+                    className="dropdown-divider"
+                    onClick={handleSignOut}
+                  ></div>
                   <strong>Logout</strong>
                 </a>
               </div>

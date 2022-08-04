@@ -1,4 +1,4 @@
-import { SIGNIN_SUCCESS, SIGNOUT_SUCCESS } from "../../constants/constants";
+import { SIGNIN_SUCCESS, CLEAR_AUTH } from "../../constants/constants";
 
 const initialState = {
   acessToken: "",
@@ -12,8 +12,8 @@ function authReducer(state = initialState, action) {
         acessToken: action.payload.acessToken,
         isAdmin: action.payload.isAdmin,
       };
-    case SIGNOUT_SUCCESS:
-      return null;
+    case CLEAR_AUTH:
+      return initialState;
     default:
       return state;
   }

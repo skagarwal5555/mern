@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import {
   deleteOrder,

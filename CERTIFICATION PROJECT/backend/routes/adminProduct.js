@@ -108,10 +108,12 @@ router.patch(
         res.status(400).send({ status: "failed", errors: errors.array() });
       } else {
         try {
-          var objCategory = await Category.findOne({ name: req.body.category });
+          var objCategory = await Category.findOne({
+            name: req.body.category.name,
+          });
           if (objCategory === null) {
             objCategory = new Category({
-              name: req.body.category,
+              name: req.body.category.name,
             });
             objCategory.save();
           }
