@@ -16,7 +16,10 @@ function DisplayAlertMessage() {
         delay={3000}
         autohide
         className="bg-success toast-container position-fixed"
-        style={{ display: auth.msgType === "success" ? "block" : "none" }}
+        style={{
+          display: auth.msgType === "success" ? "block" : "none",
+          zIndex: "100",
+        }}
       >
         <Toast.Body>{auth.message}</Toast.Body>
       </Toast>
@@ -26,7 +29,10 @@ function DisplayAlertMessage() {
         delay={3000}
         autohide
         className="bg-danger toast-container position-fixed"
-        style={{ display: auth.msgType === "failure" ? "block" : "none" }}
+        style={{
+          display: auth.msgType === "failure" ? "block" : "none",
+          zIndex: "100",
+        }}
       >
         <Toast.Body>{auth.message}</Toast.Body>
       </Toast>

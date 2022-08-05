@@ -40,7 +40,7 @@ router.post(
           //if category doesnt exist , create one
           if (objCategory === null) {
             objCategory = new Category({
-              name: category,
+              name: req.body.category.name,
             });
             objCategory.save();
           }

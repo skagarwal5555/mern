@@ -31,7 +31,10 @@ export function Cart() {
       {cartItems !== undefined && cartItems.length > 0 ? (
         <div>
           <Row className="justify-content-end">
-            <Col style={{ alignItems: "end" }} className="col-4">
+            <Col
+              style={{ alignItems: "end", paddingLeft: "40px" }}
+              className="col-4"
+            >
               <Button
                 variant="light"
                 type="button"
@@ -54,7 +57,10 @@ export function Cart() {
             </Col>
           </Row>
           <Row className="mb-5 justify-content-end">
-            <Col style={{ alignItems: "end" }} className="col-3">
+            <Col
+              style={{ alignItems: "end", paddingLeft: "50px" }}
+              className="col-3"
+            >
               <Button
                 variant="primary"
                 type="button"

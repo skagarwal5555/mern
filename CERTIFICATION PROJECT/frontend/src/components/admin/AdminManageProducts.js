@@ -17,9 +17,7 @@ function AdminManageProducts() {
   };
 
   useEffect(() => {
-    if (products === undefined || products.length === 0) {
-      loadAllProducts();
-    }
+    loadAllProducts();
   }, []);
 
   const handleAddNewProductClick = () => {

@@ -1,6 +1,6 @@
 import { Products } from "../products/Products";
 import { Banner } from "./Banner";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Spinner } from "react-bootstrap";
 import { CategoryCard } from "../category/Category-card";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -13,6 +13,7 @@ export function Home() {
   let [myProducts, setMyProducts] = useState([]);
   let [categories, setCategories] = useState([]);
   let [banner, setBanner] = useState([]);
+  let [isLoading, setIsLoading] = useState(false);
 
   const loadCategories = () => {
     axios
@@ -55,41 +56,51 @@ export function Home() {
 
   useEffect(() => {
     async function fetchData() {
+      setIsLoading(true);
       await loadCategories();
       await loadTopProducts();
       await loadBanner();
+      setIsLoading(false);
     }
     fetchData();
   }, []);
 
   return (
     <div className="w-75">
-      <Row>
-        <Col md={12}>
-          <Banner data-testid="homepage-banner" banner={banner}></Banner>
-        </Col>
-        <Col
-          md={12}
-          className="d-flex justify-content-between"
-          data-testid="homepage-category"
-        >
-          {categories.map((category) => (
-            <CategoryCard category={category}></CategoryCard>
-          ))}
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12} className="ml-2 mt-5">
-          <h3>Top Products</h3>
-        </Col>
-      </Row>
-      <Row className="d-flex justify-content-between" style={rowStyle}>
-        <Products
-          products={myProducts}
-          data-testid="homepage-product"
-          width={"20%"}
-        ></Products>
-      </Row>
+      {isLoading ? (
+        <div className="text-center py-5">
+          <Spinner animation="border" />
+        </div>
+      ) : (
+        <div>
+          <Row>
+            <Col md={12}>
+              <Banner data-testid="homepage-banner" banner={banner}></Banner>
+            </Col>
+            <Col
+              md={12}
+              className="d-flex justify-content-between"
+              data-testid="homepage-category"
+            >
+              {categories.map((category) => (
+                <CategoryCard category={category}></CategoryCard>
+              ))}
+            </Col>
+          </Row>
+          <Row>
+            <Col md={12} className="ml-2 mt-5">
+              <h3>Top Products</h3>
+            </Col>
+          </Row>
+          <Row className="d-flex justify-content-between" style={rowStyle}>
+            <Products
+              products={myProducts}
+              data-testid="homepage-product"
+              width={"20%"}
+            ></Products>
+          </Row>
+        </div>
+      )}
     </div>
   );
 }

@@ -8,6 +8,18 @@ import { clearCart } from "../../redux/actions/cartActions";
 
 function Checkout() {
   let state = useSelector((state) => state);
+  const InitState = {
+    firstname: "",
+    lastname: "",
+    email: "",
+    address: {
+      streetAddress: "",
+      city: "",
+      state: "",
+      zipCode: "",
+    },
+  };
+
   let [userInfo, setUserInfo] = useState({
     firstname: state.profile.firstname,
     lastname: state.profile.lastname,
@@ -75,17 +87,24 @@ function Checkout() {
       console.log(data);
     }
 
-    await axios
-      .post("http://localhost:8081/api/v1/checkout", data, config)
-      .then((res) => {
-        console.log(res);
-        store.dispatch(setAlertMessage("Checkout successful", "success"));
-        store.dispatch(clearCart());
-      })
-      .catch((err) => {
-        console.log(err);
-        store.dispatch(setAlertMessage("checkout failed", "failure"));
-      });
+    if (cart !== undefined && cart.length > 0) {
+      await axios
+        .post("http://localhost:8081/api/v1/checkout", data, config)
+        .then((res) => {
+          console.log(res);
+          store.dispatch(setAlertMessage("Checkout successful", "success"));
+          store.dispatch(clearCart());
+          setUserInfo(InitState);
+        })
+        .catch((err) => {
+          console.log(err);
+          store.dispatch(setAlertMessage("checkout failed", "failure"));
+        });
+    } else {
+      store.dispatch(
+        setAlertMessage("No items in cart to place order", "failure")
+      );
+    }
   };
 
   return (

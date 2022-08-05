@@ -8,7 +8,7 @@ router.get("/banner", async (req, res) => {
   try {
     var products = await Product.find()
       .select({ name: 1, productImage: 1 })
-      .sort({ created_at: -1 });
+      .sort({ createdAt: -1 });
     products = products.splice(0, 3);
     res.status(200).json({
       status: "success",

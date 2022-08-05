@@ -14,19 +14,19 @@ function AdminAddEditProduct() {
     state.products.find((item) => item._id === product_id)
   );
 
+  const InitState = {
+    name: "",
+    price: "",
+    description: "",
+    productImage: "",
+    discountPrice: "",
+    category: {
+      name: "",
+    },
+  };
+
   let [product, setProduct] = useState(
-    objProduct !== undefined
-      ? objProduct
-      : {
-          name: "",
-          price: "",
-          description: "",
-          productImage: "",
-          discountPrice: "",
-          category: {
-            name: "",
-          },
-        }
+    objProduct !== undefined ? objProduct : InitState
   );
 
   const handleChange = (e) => {
@@ -54,6 +54,7 @@ function AdminAddEditProduct() {
   const handleUpdateProduct = async (event) => {
     event.preventDefault();
     await UpdateProduct(Token, product);
+    setProduct(InitState);
   };
 
   const handleManageProductsClick = () => {

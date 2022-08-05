@@ -104,7 +104,10 @@ export function ProductPage() {
                 {displayMoney(product.price)}
               </Button>
             </div>
-            <div className="ml-2">
+            <div
+              className="ml-2"
+              style={{ display: auth.isAdmin ? "none" : "block" }}
+            >
               <Button
                 variant="warning"
                 type="button"
