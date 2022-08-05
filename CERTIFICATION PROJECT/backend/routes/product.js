@@ -35,4 +35,21 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.get("/name/:name", async (req, res) => {
+  try {
+    const name = req.params.name;
+    console.log(name);
+    const products = await Product.find({
+      name: { $regex: name, $options: "i" },
+    });
+    res.status(200).json({
+      status: "success",
+      products,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: "Product search failed" });
+  }
+});
+
 module.exports = router;

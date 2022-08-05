@@ -13,3 +13,11 @@ export const signInFailure = (errorMessage) => ({
 export const resetAuth = () => ({
   type: type.CLEAR_AUTH,
 });
+
+export const setAlertMessage = (message, msgType) => ({
+  type: "SET_ALERT",
+  payload: {
+    message: message,
+    msgType: msgType,
+  },
+});

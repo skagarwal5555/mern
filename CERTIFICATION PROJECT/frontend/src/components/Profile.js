@@ -5,13 +5,15 @@ import { useSelector } from "react-redux";
 import profileIcon from "../static/profile_icon.png";
 import { useRef } from "react";
 import store from "../redux/store/store";
+import { setAlertMessage } from "../redux/actions/authActions";
 
 function Profile() {
   const inputRef = useRef(null);
-  console.log(useSelector((state) => state));
   const profileState = useSelector((state) => state.profile);
   const token = useSelector((state) => state.auth.acessToken);
   let [profile, setProfile] = useState(profileState);
+  let [isEditing, setIsEditing] = useState(false);
+
   const addressChangeHandler = (e) => {
     setProfile((prevState) => ({
       ...prevState,
@@ -21,9 +23,6 @@ function Profile() {
       },
     }));
   };
-
-  let [isEditing, setIsEditing] = useState(false);
-  let [profileImageError, setProfileImageError] = useState("");
 
   const handleEditBtnClick = (event) => {
     event.preventDefault();
@@ -47,10 +46,14 @@ function Profile() {
       .patch("http://localhost:8081/api/v1/profile/address", data, config)
       .then((res) => {
         console.log(res);
+        store.dispatch(
+          setAlertMessage("Profile updated successfully", "success")
+        );
         setIsEditing(false);
       })
       .catch((err) => {
         console.log(err);
+        store.dispatch(setAlertMessage("Profile update failed", "failure"));
       });
   };
 
@@ -60,7 +63,9 @@ function Profile() {
       headers: { token: token },
     };
     if (profile.profileImage === "" || !profile.profileImage) {
-      setProfileImageError(true);
+      store.dispatch(
+        setAlertMessage("No image to delete. This is default image", "failure")
+      );
       return null;
     }
     await axios
@@ -71,6 +76,9 @@ function Profile() {
           ...prevState,
           profileImage: "",
         }));
+        store.dispatch(
+          setAlertMessage("Profile image deleted successfully", "success")
+        );
       })
       .catch((err) => {
         console.log(err);
@@ -99,6 +107,9 @@ function Profile() {
     await axios
       .patch("http://localhost:8081/api/v1/profile/image", formData, config)
       .then((res) => {
+        store.dispatch(
+          setAlertMessage("Profile image updated successfully", "success")
+        );
         const configHeader = {
           headers: { token: token },
         };
@@ -117,6 +128,9 @@ function Profile() {
       })
       .catch((err) => {
         console.log(err);
+        store.dispatch(
+          setAlertMessage("Profile image upload failed", "failure")
+        );
       });
   };
   return (
@@ -153,15 +167,6 @@ function Profile() {
                           )}
                         </Col>
                       </Row>
-                      {profileImageError && (
-                        <Row>
-                          <Col md={12} className="content-align-center">
-                            <div className="alert alert-danger">
-                              No image to delete
-                            </div>
-                          </Col>
-                        </Row>
-                      )}
                       <Row className="mt-3">
                         <Col md={8}>
                           <Button

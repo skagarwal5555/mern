@@ -83,15 +83,17 @@ router.post("/", async (req, res, next) => {
 
 router.get("/", auth, async (req, res, next) => {
   if (req.user.isAdmin) {
-    var orders = await Order.find().populate({
-      path: "cartId",
-      populate: {
-        path: "items.productId",
+    var orders = await Order.find()
+      .populate({
+        path: "cartId",
         populate: {
-          path: "category",
+          path: "items.productId",
+          populate: {
+            path: "category",
+          },
         },
-      },
-    });
+      })
+      .sort({ isDelivered: 1, createdAt: 1 });
     console.log(orders);
     res.status(200).json({
       status: "success",

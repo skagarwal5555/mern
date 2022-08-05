@@ -2,6 +2,7 @@ import React from "react";
 import { CategoryCard } from "./Category-card";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Row } from "react-bootstrap";
 
 export function CategoryAll() {
   let [categories, setCategories] = useState([]);
@@ -29,10 +30,10 @@ export function CategoryAll() {
   }, []);
 
   return (
-    <div className="d-flex justify-content-between">
+    <Row className="d-flex justify-content-between w-50">
       {categories.map((category) => (
         <CategoryCard category={category}></CategoryCard>
       ))}
-    </div>
+    </Row>
   );
 }

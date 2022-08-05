@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useParams } from "react-router-dom";
-import { Button, Row, Col, Container } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
+import { Button, Row, Col, Container, Breadcrumb } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import CartRow from "../cart/CartRow";
+import { displayMoney } from "../../helpers/utils";
 
 function OrderDetails() {
   const { id } = useParams();
+  const navigate = useNavigate();
   let state = useSelector((state) => state.auth);
   let [orderDetail, setOrderDetails] = useState({
     address: {
@@ -39,8 +41,19 @@ function OrderDetails() {
   useEffect(() => {
     loadOrderDetails();
   }, []);
+
+  const handleOrdersClick = () => {
+    navigate("/orders");
+  };
   return (
     <Container>
+      <Breadcrumb className="mt-3">
+        <Breadcrumb.Item href="#">My Account</Breadcrumb.Item>
+        <Breadcrumb.Item href="#" onClick={handleOrdersClick}>
+          Orders
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Detail</Breadcrumb.Item>
+      </Breadcrumb>
       <Row className="mb-5">
         <Col>
           <h2>Order Details</h2>
@@ -53,14 +66,16 @@ function OrderDetails() {
         <Row className="justify-content-end">
           <Col style={{ alignItems: "end" }} className="col-4">
             <Button variant="light" type="button" disabled>
-              Grand Total $
-              {orderDetail.cartId.items.reduce((accumulator, object) => {
-                return (
-                  accumulator +
-                  (object.productId.price - object.productId.discountPrice) *
-                    object.quantity
-                );
-              }, 0)}
+              Grand Total
+              {displayMoney(
+                orderDetail.cartId.items.reduce((accumulator, object) => {
+                  return (
+                    accumulator +
+                    (object.productId.price - object.productId.discountPrice) *
+                      object.quantity
+                  );
+                }, 0)
+              )}
             </Button>
             <br />
           </Col>

@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color:#F7F4F3;
 }
 
 code {
@@ -74,3 +75,12 @@ code {
 li:active {
   background:blue;
   }
+
+  .truncate {
+    width: [width];
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  

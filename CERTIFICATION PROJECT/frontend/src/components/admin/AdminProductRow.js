@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import store from "../../redux/store/store";
 import { removeProduct } from "../../redux/actions/productActions";
+import { displayMoney } from "../../helpers/utils";
 
 function AdminProductRow({ product }) {
   const navigate = useNavigate();
@@ -50,13 +51,20 @@ function AdminProductRow({ product }) {
               <span>#{product.name}</span>
             </div>
             <div>
-              <span>Price ${product.price}</span>
+              <span>Price {displayMoney(product.price)}</span>
             </div>
           </div>
         </Col>
         <Col md={4}>
-          <Button onClick={handleEditProduct}>Edit</Button>&nbsp;|&nbsp;
-          <Button variant="danger" onClick={handleDeleteProduct}>
+          <Button onClick={handleEditProduct} variant="link">
+            Edit
+          </Button>
+          &nbsp;|&nbsp;
+          <Button
+            variant="link"
+            style={{ color: "red" }}
+            onClick={handleDeleteProduct}
+          >
             Delete
           </Button>
         </Col>

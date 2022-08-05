@@ -3,6 +3,7 @@ import { Button, Row, Col, Container } from "react-bootstrap";
 
 import { useSelector } from "react-redux";
 import CartRow from "./CartRow";
+import { displayMoney } from "../../helpers/utils";
 
 export function Cart() {
   const cartItems = useSelector((state) => state.cart);
@@ -37,14 +38,17 @@ export function Cart() {
                 disabled
                 data-testid="cart-grand-total"
               >
-                Grand Total $
-                {cartItems.reduce((accumulator, object) => {
-                  return (
-                    accumulator +
-                    (object.productId.price - object.productId.discountPrice) *
-                      object.quantity
-                  );
-                }, 0)}
+                Grand Total{" "}
+                {displayMoney(
+                  cartItems.reduce((accumulator, object) => {
+                    return (
+                      accumulator +
+                      (object.productId.price -
+                        object.productId.discountPrice) *
+                        object.quantity
+                    );
+                  }, 0)
+                )}
               </Button>
               <br />
             </Col>

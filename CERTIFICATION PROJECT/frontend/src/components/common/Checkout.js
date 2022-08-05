@@ -14,10 +14,10 @@ function Checkout() {
     lastname: state.profile.lastname,
     email: state.profile.email,
     address: {
-      streetAddress: "",
-      city: "",
-      state: "",
-      zipCode: "",
+      streetAddress: state.profile.address.streetAddress,
+      city: state.profile.address.city,
+      state: state.profile.address.state,
+      zipCode: state.profile.address.zipCode,
     },
   });
   const handleUserInfoChange = (e) => {
@@ -141,6 +141,7 @@ function Checkout() {
                 required
                 name="streetAddress"
                 onChange={handleUserInfoAddressChange}
+                value={userInfo.address.streetAddress}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCity">
@@ -151,6 +152,7 @@ function Checkout() {
                 required
                 name="city"
                 onChange={handleUserInfoAddressChange}
+                value={userInfo.address.city}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicState">
@@ -161,6 +163,7 @@ function Checkout() {
                 required
                 name="state"
                 onChange={handleUserInfoAddressChange}
+                value={userInfo.address.state}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicZipCode">
@@ -171,6 +174,7 @@ function Checkout() {
                 required
                 name="zipCode"
                 onChange={handleUserInfoAddressChange}
+                value={userInfo.address.zipCode}
               />
             </Form.Group>
           </div>

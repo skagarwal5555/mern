@@ -27,8 +27,8 @@ function AdminNavigation({ auth }) {
     <div className="App">
       <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-info">
         <a className="navbar-brand" href="/" onClick={handleLogoClick}>
-          {<img src={shop24x7Logo} alt="navbar-brand" width="30" height="30" />}
-          shop24X7
+          {<img src={shop24x7Logo} alt="navbar-brand" width="30" height="30" />}{" "}
+          &nbsp; shop24X7
         </a>
 
         <div

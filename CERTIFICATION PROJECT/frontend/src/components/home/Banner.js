@@ -1,4 +1,5 @@
 import { Carousel } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 const cardStyle = {
   borderRadius: "5px",
@@ -6,6 +7,11 @@ const cardStyle = {
 };
 
 export function Banner({ banner }) {
+  const navigate = useNavigate();
+  const handleBannerClick = (product, event) => {
+    event.preventDefault();
+    navigate("/products/" + product._id);
+  };
   return (
     <Carousel style={cardStyle} variant="dark">
       {banner.map((product) => (
@@ -14,6 +20,8 @@ export function Banner({ banner }) {
             className="w-100"
             src={product.productImage}
             alt={product.name}
+            style={{ cursor: "pointer" }}
+            onClick={(event) => handleBannerClick(product, event)}
           />
         </Carousel.Item>
       ))}

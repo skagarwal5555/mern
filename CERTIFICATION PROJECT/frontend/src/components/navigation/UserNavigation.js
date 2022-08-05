@@ -10,7 +10,7 @@ import { clearOrder } from "../../redux/actions/orderActions";
 import { clearProfile } from "../../redux/actions/profileActions";
 import { setProducts } from "../../redux/actions/productActions";
 import { useNavigate } from "react-router-dom";
-
+import ProductSearch from "../common/ProductSearch";
 export function UserNavigation({ auth }) {
   const navigate = useNavigate();
   let cartItem = useSelector((state) => state.cart);
@@ -29,26 +29,15 @@ export function UserNavigation({ auth }) {
   };
   return (
     <div className="App">
-      <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-primary">
+      <nav className="navbar navbar-expand-lg navbar-fixed-top navbar-dark bg-dark">
         <a className="navbar-brand" href="/" onClick={handleLogoClick}>
           {<img src={shop24x7Logo} alt="navbar-brand" width="30" height="30" />}
-          shop24X7
+          &nbsp; shop24X7
         </a>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
           <form className="form-inline mr-auto my-2 my-lg-0 mr-2">
-            <input
-              type="search"
-              className="form-control mr-sm-2"
-              name="searchBar"
-              id="searchBar"
-            />
-            <button
-              className="btn btn-outline-light my-2 my-sm-0"
-              aria-label="btn"
-            >
-              <i className="fa fa-search" aria-hidden="true"></i>
-            </button>
+            <ProductSearch />
           </form>
           <ul className="navbar-nav">
             <li className="nav-item">

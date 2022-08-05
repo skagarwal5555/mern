@@ -6,6 +6,9 @@ const { check, validationResult } = require("express-validator/check");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
+var fs = require("fs");
+var path = require("path");
+
 const DIR = "./public/";
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -222,6 +225,17 @@ router.patch("/address", auth, async (req, res) => {
 router.delete("/image", auth, async (req, res) => {
   try {
     const userObj = await User.findById(req.user.id);
+
+    let filePath = "public\\" + path.basename(userObj.profileImage);
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      //file removed
+    });
+
     userObj.profileImage = "";
 
     await User.updateOne(

@@ -3,6 +3,8 @@ import { SIGNIN_SUCCESS, CLEAR_AUTH } from "../../constants/constants";
 const initialState = {
   acessToken: "",
   isAdmin: "",
+  message: "",
+  msgType: "",
 };
 
 function authReducer(state = initialState, action) {
@@ -11,9 +13,17 @@ function authReducer(state = initialState, action) {
       return {
         acessToken: action.payload.acessToken,
         isAdmin: action.payload.isAdmin,
+        message: "",
+        msgType: "",
       };
     case CLEAR_AUTH:
       return initialState;
+    case "SET_ALERT":
+      return {
+        ...state,
+        message: action.payload.message,
+        msgType: action.payload.msgType,
+      };
     default:
       return state;
   }

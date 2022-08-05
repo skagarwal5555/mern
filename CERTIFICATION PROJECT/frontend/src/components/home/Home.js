@@ -79,8 +79,7 @@ export function Home() {
         </Col>
       </Row>
       <Row>
-        <Col md={12}>
-          {" "}
+        <Col md={12} className="ml-2 mt-5">
           <h3>Top Products</h3>
         </Col>
       </Row>

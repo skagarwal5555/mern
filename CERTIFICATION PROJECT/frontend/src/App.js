@@ -16,6 +16,7 @@ import { CategoryAll } from "./components/category/CategoryAll";
 import OrderDetails from "./components/orders/OrderDetails";
 import AccessDeniedPage from "./components/common/AccessDeniedPage";
 import { useSelector } from "react-redux";
+import DisplayAlertMessage from "./components/common/DisplayAlertMessage";
 
 const alwaysCentered = {
   display: "flex",
@@ -28,6 +29,7 @@ function App() {
   return (
     <div>
       <Header></Header>
+      <DisplayAlertMessage></DisplayAlertMessage>
       <div style={alwaysCentered} className="mb-4 pb-2">
         <Routes>
           <Route path="/login" element={<Login isLogin={true} />}></Route>
@@ -47,27 +49,9 @@ function App() {
             element={<CategoryProducts />}
           ></Route>
           <Route path="/products/:product_id" element={<ProductPage />}></Route>
-          <Route
-            path="/cart"
-            element={
-              auth.acessToken.length > 0 && !auth.isAdmin ? (
-                <Cart />
-              ) : (
-                <AccessDeniedPage></AccessDeniedPage>
-              )
-            }
-          ></Route>
+          <Route path="/cart" element={<Cart />}></Route>
           <Route path="/" element={<Home />}></Route>
-          <Route
-            path="/checkout"
-            element={
-              auth.acessToken.length > 0 && !auth.isAdmin ? (
-                <Checkout />
-              ) : (
-                <AccessDeniedPage></AccessDeniedPage>
-              )
-            }
-          ></Route>
+          <Route path="/checkout" element={<Checkout />}></Route>
           <Route
             path="/orders"
             element={

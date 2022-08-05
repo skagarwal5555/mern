@@ -6,6 +6,7 @@ import { Card, Button, Row, Col, Container } from "react-bootstrap";
 import { Products } from "./Products";
 import { useSelector } from "react-redux";
 import { addProductItemToCart } from "../../redux/actions/cartActions";
+import { displayMoney } from "../../helpers/utils";
 
 const cardStyle = {
   borderRadius: "5px",
@@ -99,7 +100,7 @@ export function ProductPage() {
                 disabled
                 data-testid="product-price"
               >
-                ${product.price}
+                {displayMoney(product.price)}
               </Button>
             </div>
             <div>
@@ -135,7 +136,7 @@ export function ProductPage() {
           <Products
             products={rProducts}
             data-testid="homepage-product"
-            width={"30%"}
+            width={"20%"}
           ></Products>
         </Row>
       </Container>

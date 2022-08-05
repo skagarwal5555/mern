@@ -5,6 +5,7 @@ import {
   addProductItemToCart,
   DecreaseRemoveProductFromCart,
 } from "../../redux/actions/cartActions";
+import { displayMoney } from "../../helpers/utils";
 
 function CartRow({ p, showActions }) {
   const auth = useSelector((state) => state.auth);
@@ -44,10 +45,10 @@ function CartRow({ p, showActions }) {
               <span>{p.productId.name}</span>
             </div>
             <div>
-              <span>Price - ${p.productId.price}</span>
+              <span>Price - {displayMoney(p.productId.price)}</span>
             </div>
             <div>
-              <span>Discount - ${p.productId.discountPrice}</span>
+              <span>Discount - {displayMoney(p.productId.discountPrice)}</span>
             </div>
             <div>
               <span style={{ display: showActions ? "none" : "block" }}>
@@ -58,7 +59,9 @@ function CartRow({ p, showActions }) {
         </Col>
         <Col md={2}>
           <div>
-            ${(p.productId.price - p.productId.discountPrice) * p.quantity}
+            {displayMoney(
+              (p.productId.price - p.productId.discountPrice) * p.quantity
+            )}
           </div>
         </Col>
       </Row>

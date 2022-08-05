@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Row, Col } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { Row, Col, Breadcrumb, Container } from "react-bootstrap";
+import { useParams, useNavigate } from "react-router-dom";
 import { Products } from "../products/Products";
 import productFilters from "../../static/productFilters.json";
 const rowStyle = {
@@ -12,7 +12,7 @@ export function CategoryProducts(props) {
   const { catergory_id } = useParams();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
-
+  const navigate = useNavigate();
   console.log(productFilters);
   const loadProducts = async () => {
     await axios
@@ -31,39 +31,51 @@ export function CategoryProducts(props) {
     loadProducts();
   }, []);
 
+  const handleHomeClick = () => {
+    navigate("/");
+  };
+
   return (
-    <Row className="w-75 d-flex justify-content-between">
-      <Col md={3} className="mt-4">
-        <Row>
-          <strong>Price Range</strong>
-        </Row>
-        <ul>
-          {productFilters.map((item) => (
-            <ProductFilter
-              priceRange={item}
-              products={products}
-              setFilteredProducts={setFilteredProducts}
-            ></ProductFilter>
-          ))}
-        </ul>
-      </Col>
-      <Col md={9}>
-        <Row>
-          {[products.length] > 0 ? (
-            <strong>{products[0].category.name}</strong>
-          ) : (
-            <strong>No Products Found</strong>
-          )}
-        </Row>
-        <Row className="d-flex" style={rowStyle}>
-          <Products
-            products={filteredProducts}
-            data-testid="homepage-product"
-            width={"30%"}
-          ></Products>
-        </Row>
-      </Col>
-    </Row>
+    <Container>
+      <Breadcrumb className="mt-3">
+        <Breadcrumb.Item href="#" onClick={handleHomeClick}>
+          Home
+        </Breadcrumb.Item>
+        <Breadcrumb.Item active>Products</Breadcrumb.Item>
+      </Breadcrumb>
+      <Row className="w-75 d-flex justify-content-between">
+        <Col md={3} className="mt-4">
+          <Row>
+            <strong>Price Range</strong>
+          </Row>
+          <ul>
+            {productFilters.map((item) => (
+              <ProductFilter
+                priceRange={item}
+                products={products}
+                setFilteredProducts={setFilteredProducts}
+              ></ProductFilter>
+            ))}
+          </ul>
+        </Col>
+        <Col md={9}>
+          <Row>
+            {[products.length] > 0 ? (
+              <strong>{products[0].category.name}</strong>
+            ) : (
+              <strong>No Products Found</strong>
+            )}
+          </Row>
+          <Row className="d-flex" style={rowStyle}>
+            <Products
+              products={filteredProducts}
+              data-testid="homepage-product"
+              width={"40%"}
+            ></Products>
+          </Row>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
