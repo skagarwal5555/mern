@@ -1,7 +1,7 @@
 export const displayMoney = (n) => {
   const format = new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "USD",
+    currency: "EUR",
   });
 
   // or use toLocaleString()

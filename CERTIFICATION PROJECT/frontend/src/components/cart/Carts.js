@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 import { Button, Row, Col, Container } from "react-bootstrap";
-
 import { useSelector } from "react-redux";
 import CartRow from "./CartRow";
 import { displayMoney } from "../../helpers/utils";
+import * as routes from "../../constants/routes";
 
 export function Cart() {
   const cartItems = useSelector((state) => state.cart);
@@ -11,7 +11,7 @@ export function Cart() {
   const navigate = useNavigate();
 
   const checkout = function () {
-    navigate("/checkout");
+    navigate(routes.CHECKOUT);
   };
 
   return (

@@ -11,6 +11,8 @@ import { clearProfile } from "../../redux/actions/profileActions";
 import { setProducts } from "../../redux/actions/productActions";
 import { useNavigate } from "react-router-dom";
 import ProductSearch from "../common/ProductSearch";
+import * as routes from "../../constants/routes";
+
 export function UserNavigation({ auth }) {
   const navigate = useNavigate();
   let cartItem = useSelector((state) => state.cart);
@@ -21,11 +23,11 @@ export function UserNavigation({ auth }) {
     store.dispatch(clearOrder());
     store.dispatch(clearProfile());
     store.dispatch(setProducts([]));
-    navigate("/login");
+    navigate(routes.LOGIN);
   };
   const handleLogoClick = (event) => {
     event.preventDefault();
-    navigate("/");
+    navigate(routes.HOME);
   };
   return (
     <div className="App">
@@ -41,23 +43,23 @@ export function UserNavigation({ auth }) {
           </form>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/" className="nav-link">
+              <NavLink to={routes.HOME} className="nav-link">
                 Home
               </NavLink>
             </li>
 
             <li className="nav-item">
-              <NavLink to="/categories" className="nav-link">
-                Departments
+              <NavLink to={routes.ALL_CATEGORIES} className="nav-link">
+                Categories
               </NavLink>
             </li>
             <li style={{ display: auth.acessToken !== "" ? "none" : "block" }}>
-              <NavLink to="/login" className="nav-link">
+              <NavLink to={routes.LOGIN} className="nav-link">
                 Login
               </NavLink>
             </li>
             <li style={{ cursor: "pointer" }}>
-              <NavLink to="/cart" className="nav-link">
+              <NavLink to={routes.CART} className="nav-link">
                 <img src={cartIcon} alt="navbar-brand" width="30" height="30" />
                 <Badge bg="secondary">
                   {cartItem.reduce((accumulator, object) => {
@@ -93,12 +95,12 @@ export function UserNavigation({ auth }) {
               </a>
               <div className="dropdown-menu dropdown-menu-right bg-primary">
                 <NavLink
-                  to="/orders"
+                  to={routes.ORDERS}
                   className="nav-link nav-item navbar-dark nav-link"
                 >
                   My Orders
                 </NavLink>
-                <NavLink to="/Profile" className="nav-link nav-item">
+                <NavLink to={routes.PROFILE} className="nav-link nav-item">
                   My Profile
                 </NavLink>
                 <a href="/" className="dropdown-item">

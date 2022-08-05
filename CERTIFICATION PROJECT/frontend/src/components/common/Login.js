@@ -4,7 +4,6 @@ import { WelcomeMessageCard } from "./Welcome-message";
 import { RegisterCard } from "./Register-card";
 
 export function Login(props) {
-  console.log(props);
   return (
     <Row className="mt-4" style={{ marginRight: "0px", marginLeft: "0px" }}>
       <Col md={2}></Col>

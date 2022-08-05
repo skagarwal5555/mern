@@ -7,6 +7,7 @@ import { Products } from "./Products";
 import { useSelector } from "react-redux";
 import { addProductItemToCart } from "../../redux/actions/cartActions";
 import { displayMoney } from "../../helpers/utils";
+import * as routes from "../../constants/routes";
 
 const cardStyle = {
   borderRadius: "5px",
@@ -48,7 +49,7 @@ export function ProductPage() {
       .get(`http://localhost:8081/api/v1/products`)
       .then((res) => {
         if (res.data.status === "success") {
-          setRProducts(res.data.products.splice(0, 6));
+          setRProducts(res.data.products.splice(0, 8));
         }
       })
       .catch((err) => {
@@ -62,7 +63,7 @@ export function ProductPage() {
 
   const buyNow = () => {
     addProductItemToCart(product, auth.acessToken, cartItems);
-    navigate("/checkout");
+    navigate(routes.CHECKOUT);
   };
 
   return (
@@ -103,7 +104,7 @@ export function ProductPage() {
                 {displayMoney(product.price)}
               </Button>
             </div>
-            <div>
+            <div className="ml-2">
               <Button
                 variant="warning"
                 type="button"
@@ -127,7 +128,7 @@ export function ProductPage() {
         </Row>
         <br></br>
         <br></br>
-        <Row>
+        <Row className="ml-2">
           <Col md={12} className="pl-2 pr-2">
             <h6>Recommended Products</h6>
           </Col>

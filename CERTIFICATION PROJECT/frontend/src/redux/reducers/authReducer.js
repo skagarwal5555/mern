@@ -1,4 +1,8 @@
-import { SIGNIN_SUCCESS, CLEAR_AUTH } from "../../constants/constants";
+import {
+  SIGNIN_SUCCESS,
+  CLEAR_AUTH,
+  SET_ALERT,
+} from "../../constants/constants";
 
 const initialState = {
   acessToken: "",
@@ -18,7 +22,7 @@ function authReducer(state = initialState, action) {
       };
     case CLEAR_AUTH:
       return initialState;
-    case "SET_ALERT":
+    case SET_ALERT:
       return {
         ...state,
         message: action.payload.message,

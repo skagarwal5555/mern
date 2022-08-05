@@ -2,21 +2,21 @@
   {
     "minVal": 0,
     "maxVal": 5,
-    "desc": "$0 - $5"
+    "id": 1
   },
   {
     "minVal": 5,
     "maxVal": 10,
-    "desc": "$5 - $10"
+    "id": 2
   },
   {
     "minVal": 10,
     "maxVal": 15,
-    "desc": "$10 - $15"
+    "id": 3
   },
   {
     "minVal": 15,
     "maxVal": 100,
-    "desc": "$15 - $100"
+    "id": 4
   }
 ]

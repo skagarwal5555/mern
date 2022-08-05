@@ -1,9 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Row, Col, Breadcrumb, Container } from "react-bootstrap";
+import { Row, Col, Breadcrumb, Container, Button } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
 import { Products } from "../products/Products";
 import productFilters from "../../static/productFilters.json";
+import * as routes from "../../constants/routes";
+import { displayMoney } from "../../helpers/utils";
 const rowStyle = {
   padding: " 0 12px",
 };
@@ -12,6 +14,7 @@ export function CategoryProducts(props) {
   const { catergory_id } = useParams();
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  let [selectedRange, setSelectedRange] = useState("");
   const navigate = useNavigate();
   console.log(productFilters);
   const loadProducts = async () => {
@@ -32,9 +35,12 @@ export function CategoryProducts(props) {
   }, []);
 
   const handleHomeClick = () => {
-    navigate("/");
+    navigate(routes.HOME);
   };
-
+  const handleReset = () => {
+    setFilteredProducts(products);
+    setSelectedRange(0);
+  };
   return (
     <Container>
       <Breadcrumb className="mt-3">
@@ -54,9 +60,14 @@ export function CategoryProducts(props) {
                 priceRange={item}
                 products={products}
                 setFilteredProducts={setFilteredProducts}
+                selectedRange={selectedRange}
+                setSelectedRange={setSelectedRange}
               ></ProductFilter>
             ))}
           </ul>
+          <Button variant="link" onClick={handleReset}>
+            Reset
+          </Button>
         </Col>
         <Col md={9}>
           <Row>
@@ -79,14 +90,18 @@ export function CategoryProducts(props) {
   );
 }
 
-export function ProductFilter({ products, priceRange, setFilteredProducts }) {
-  let [selectedRange, setSelectedRange] = useState("");
-
+export function ProductFilter({
+  products,
+  priceRange,
+  setFilteredProducts,
+  selectedRange,
+  setSelectedRange,
+}) {
+  console.log(selectedRange);
   const handleFilterClick = (id) => {
-    let filterRow = productFilters.find((item) => item.desc === id);
+    let filterRow = productFilters.find((item) => item.id === id);
     let minVal = filterRow.minVal;
     let maxVal = filterRow.maxVal;
-
     let newFilter = products.find(
       (item) => item.price >= minVal && item.price < maxVal
     );
@@ -103,11 +118,12 @@ export function ProductFilter({ products, priceRange, setFilteredProducts }) {
   };
   return (
     <li
-      onClick={handleFilterClick.bind(this, priceRange.desc)}
-      className={selectedRange === priceRange.desc ? "active" : ""}
+      onClick={handleFilterClick.bind(this, priceRange.id)}
+      className={selectedRange === priceRange.id ? "filterActive" : ""}
       style={{ cursor: "pointer" }}
     >
-      {priceRange.desc}
+      {displayMoney(priceRange.minVal)}&nbsp;-&nbsp;
+      {displayMoney(priceRange.maxVal)}
     </li>
   );
 }

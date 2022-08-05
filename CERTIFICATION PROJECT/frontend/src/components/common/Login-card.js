@@ -7,6 +7,7 @@ import { useNavigate, NavLink } from "react-router-dom";
 import { setProfile } from "../../redux/actions/profileActions";
 import { setCartItems } from "../../redux/actions/cartActions";
 import axios from "axios";
+import * as routes from "../../constants/routes";
 
 export function LoginCard() {
   const navigate = useNavigate();
@@ -73,7 +74,7 @@ export function LoginCard() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     await Login();
-    if (accessToken !== "") navigate("/");
+    if (accessToken !== "") navigate(routes.HOME);
   };
   const handleEmail = (event) => {
     setIsFailed(false);
@@ -133,7 +134,7 @@ export function LoginCard() {
               >
                 Login
               </Button>
-              <NavLink to="/register" className="nav-link">
+              <NavLink to={routes.REGISTER} className="nav-link">
                 Sign Up
               </NavLink>
             </Row>

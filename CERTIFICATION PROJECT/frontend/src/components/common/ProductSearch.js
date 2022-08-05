@@ -14,7 +14,6 @@ function ProductSearch() {
     await axios
       .get("http://localhost:8081/api/v1/products/name/" + query)
       .then((res) => {
-        console.log(res);
         if (res.data.status === "success") {
           setOptions(res.data.products);
           setIsLoading(false);
@@ -26,7 +25,6 @@ function ProductSearch() {
   };
 
   const handleProductClick = (selected) => {
-    console.log(selected);
     if (selected !== undefined && selected.length === 1) {
       console.log(selected[0]._id);
       navigate("/products/" + selected[0]._id);

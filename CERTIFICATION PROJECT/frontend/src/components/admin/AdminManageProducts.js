@@ -1,12 +1,11 @@
 import React from "react";
 import { Container, Button } from "react-bootstrap";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import AdminProductRow from "./AdminProductRow";
-import { setProducts } from "../../redux/actions/productActions";
-import store from "../../redux/store/store";
+import { AllProducts } from "../../redux/actions/productActions";
 import { useNavigate } from "react-router-dom";
+import * as routes from "../../constants/routes";
 
 function AdminManageProducts() {
   const navigate = useNavigate();
@@ -14,20 +13,7 @@ function AdminManageProducts() {
   const products = useSelector((state) => state.products);
 
   const loadAllProducts = async () => {
-    const config = {
-      headers: { token: Token },
-    };
-    await axios
-      .get("http://localhost:8081/api/v1/products", config)
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "success") {
-          store.dispatch(setProducts(res.data.products));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await AllProducts(Token);
   };
 
   useEffect(() => {
@@ -37,7 +23,7 @@ function AdminManageProducts() {
   }, []);
 
   const handleAddNewProductClick = () => {
-    navigate("/admin/add-new-product");
+    navigate(routes.ADD_PRODUCT);
   };
   return (
     <Container className="w-50">

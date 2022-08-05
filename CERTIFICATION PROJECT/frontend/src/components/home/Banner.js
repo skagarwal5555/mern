@@ -1,11 +1,6 @@
 import { Carousel } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-const cardStyle = {
-  borderRadius: "5px",
-  margin: "10px",
-};
-
 export function Banner({ banner }) {
   const navigate = useNavigate();
   const handleBannerClick = (product, event) => {
@@ -13,7 +8,7 @@ export function Banner({ banner }) {
     navigate("/products/" + product._id);
   };
   return (
-    <Carousel style={cardStyle} variant="dark">
+    <Carousel style={{ borderRadius: "5px", margin: "10px" }} variant="dark">
       {banner.map((product) => (
         <Carousel.Item>
           <img

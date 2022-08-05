@@ -1,10 +1,8 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import axios from "axios";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import store from "../../redux/store/store";
-import { removeProduct } from "../../redux/actions/productActions";
+import { DeleteProduct } from "../../redux/actions/productActions";
 import { displayMoney } from "../../helpers/utils";
 
 function AdminProductRow({ product }) {
@@ -14,24 +12,7 @@ function AdminProductRow({ product }) {
     navigate("/admin/products/" + product._id + "/edit");
   };
   const handleDeleteProduct = async () => {
-    const config = {
-      headers: { token: Token },
-    };
-
-    await axios
-      .delete(
-        "http://localhost:8081/api/v1/admin/products/" + product._id,
-        config
-      )
-      .then((res) => {
-        console.log(res);
-        if (res.data.status === "success") {
-          store.dispatch(removeProduct(product._id));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    await DeleteProduct(product._id, Token);
   };
   return (
     <>

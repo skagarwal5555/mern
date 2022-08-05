@@ -5,17 +5,12 @@ export const signInSuccess = (auth, isAdmin) => ({
   payload: { acessToken: auth, isAdmin: isAdmin },
 });
 
-export const signInFailure = (errorMessage) => ({
-  type: type.SIGNIN_FAILURE,
-  payload: { errorMessage: errorMessage },
-});
-
 export const resetAuth = () => ({
   type: type.CLEAR_AUTH,
 });
 
 export const setAlertMessage = (message, msgType) => ({
-  type: "SET_ALERT",
+  type: type.SET_ALERT,
   payload: {
     message: message,
     msgType: msgType,

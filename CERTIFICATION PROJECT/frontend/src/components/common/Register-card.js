@@ -66,7 +66,7 @@ export function RegisterCard() {
           <Card.Body>
             <Card.Title>Register</Card.Title>
             <Card.Text>
-              <Form.Group className="mb-3" controlId="formBasicName">
+              <Form.Group className="mb-3">
                 <Row>
                   <Col>
                     <Form.Label>Firstname</Form.Label>
@@ -114,7 +114,7 @@ export function RegisterCard() {
                   required
                 />
               </Form.Group>
-              <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Group className="mb-3" controlId="formBasicConfirmPassword">
                 <Form.Label>Confirm Password</Form.Label>
                 <Form.Control
                   name="confirmPassword"

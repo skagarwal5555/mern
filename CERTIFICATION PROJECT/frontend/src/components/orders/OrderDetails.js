@@ -5,6 +5,7 @@ import { Button, Row, Col, Container, Breadcrumb } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import CartRow from "../cart/CartRow";
 import { displayMoney } from "../../helpers/utils";
+import * as routes from "../../constants/routes";
 
 function OrderDetails() {
   const { id } = useParams();
@@ -43,7 +44,7 @@ function OrderDetails() {
   }, []);
 
   const handleOrdersClick = () => {
-    navigate("/orders");
+    navigate(routes.ORDERS);
   };
   return (
     <Container>

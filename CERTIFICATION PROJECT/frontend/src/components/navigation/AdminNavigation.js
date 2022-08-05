@@ -7,6 +7,7 @@ import { clearOrder } from "../../redux/actions/orderActions";
 import { clearProfile } from "../../redux/actions/profileActions";
 import { setProducts } from "../../redux/actions/productActions";
 import { useNavigate } from "react-router-dom";
+import * as routes from "../../constants/routes";
 
 function AdminNavigation({ auth }) {
   const navigate = useNavigate();
@@ -17,11 +18,11 @@ function AdminNavigation({ auth }) {
     store.dispatch(clearOrder());
     store.dispatch(clearProfile());
     store.dispatch(setProducts([]));
-    navigate("/login");
+    navigate(routes.LOGIN);
   };
   const handleLogoClick = (event) => {
     event.preventDefault();
-    navigate("/");
+    navigate(routes.HOME);
   };
   return (
     <div className="App">
@@ -38,19 +39,19 @@ function AdminNavigation({ auth }) {
           <form className="form-inline mr-auto my-2 my-lg-0 mr-2"></form>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/" className="nav-link">
+              <NavLink to={routes.HOME} className="nav-link">
                 Home
               </NavLink>
             </li>
             <li style={{ display: auth.acessToken !== "" ? "none" : "block" }}>
-              <NavLink to="/login" className="nav-link">
+              <NavLink to={routes.LOGIN} className="nav-link">
                 Login
               </NavLink>
             </li>
           </ul>
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/admin/orders" className="nav-link">
+              <NavLink to={routes.ADMIN_ORDERS} className="nav-link">
                 Orders
               </NavLink>
             </li>
@@ -67,12 +68,15 @@ function AdminNavigation({ auth }) {
               </a>
               <div className="dropdown-menu dropdown-menu-right bg-info">
                 <NavLink
-                  to="/admin/add-new-product"
+                  to={routes.ADD_PRODUCT}
                   className="nav-link nav-item navbar-dark nav-link"
                 >
                   Add Product
                 </NavLink>
-                <NavLink to="/admin/products" className="nav-link nav-item">
+                <NavLink
+                  to={routes.ADMIN_PRODUCTS}
+                  className="nav-link nav-item"
+                >
                   Manage Products
                 </NavLink>
               </div>
@@ -102,7 +106,7 @@ function AdminNavigation({ auth }) {
                 </svg>
               </a>
               <div className="dropdown-menu dropdown-menu-right bg-info">
-                <NavLink to="/Profile" className="nav-link nav-item">
+                <NavLink to={routes.PROFILE} className="nav-link nav-item">
                   My Profile
                 </NavLink>
                 <a href="/" className="dropdown-item">

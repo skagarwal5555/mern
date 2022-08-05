@@ -72,8 +72,8 @@ code {
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {}
 
-li:active {
-  background:blue;
+.filterActive {
+  background:lightblue;
   }
 
   .truncate {
@@ -83,4 +83,13 @@ li:active {
     text-overflow: ellipsis;
   }
 
-  
+  .categoryCard
+  {
+  border-radius: 5px;
+  margin: 10px;
+  width: 30%;
+  height: 150px;
+  text-align: center;
+  cursor: pointer;
+  border: 1px solid black;
+  }

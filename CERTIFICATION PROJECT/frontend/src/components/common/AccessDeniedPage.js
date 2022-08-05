@@ -2,11 +2,12 @@ import React from "react";
 import { Button, Container } from "react-bootstrap";
 import accessDenied from "../../static/accessDenied.png";
 import { useNavigate } from "react-router-dom";
+import * as routes from "../../constants/routes";
 
 function AccessDeniedPage() {
   const navigate = useNavigate();
   const handleLoginClick = () => {
-    navigate("/login");
+    navigate(routes.LOGIN);
   };
   return (
     <Container className="w-25">

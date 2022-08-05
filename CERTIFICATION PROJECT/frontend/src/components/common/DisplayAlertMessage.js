@@ -5,7 +5,6 @@ import { setAlertMessage } from "../../redux/actions/authActions";
 import store from "../../redux/store/store";
 function DisplayAlertMessage() {
   let auth = useSelector((state) => state.auth);
-  console.log(auth);
   const resetToast = () => {
     store.dispatch(setAlertMessage("", ""));
   };

@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Form, Button, Breadcrumb } from "react-bootstrap";
 import { useParams, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import axios from "axios";
 import { useSelector } from "react-redux";
-import store from "../../redux/store/store";
-import { addProduct, editProduct } from "../../redux/actions/productActions";
+import { UpdateProduct } from "../../redux/actions/productActions";
+import * as routes from "../../constants/routes";
 
 function AdminAddEditProduct() {
   const navigate = useNavigate();
@@ -15,9 +13,6 @@ function AdminAddEditProduct() {
   const objProduct = useSelector((state) =>
     state.products.find((item) => item._id === product_id)
   );
-
-  let [isSuccess, setisSuccess] = useState("");
-  let [isFailure, setisFailure] = useState("");
 
   let [product, setProduct] = useState(
     objProduct !== undefined
@@ -58,47 +53,13 @@ function AdminAddEditProduct() {
 
   const handleUpdateProduct = async (event) => {
     event.preventDefault();
-    const config = {
-      headers: { token: Token },
-    };
-
-    if (product._id !== undefined) {
-      await axios
-        .patch("http://localhost:8081/api/v1/admin/products", product, config)
-        .then((res) => {
-          if (res.data.status === "success") {
-            store.dispatch(editProduct(product));
-            setisSuccess("Product Updated Successfully");
-            setisFailure("");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setisFailure("Product Updated Failed");
-          setisSuccess("");
-        });
-    } else {
-      await axios
-        .post("http://localhost:8081/api/v1/admin/products", product, config)
-        .then((res) => {
-          console.log(res);
-          if (res.status === 201) {
-            store.dispatch(addProduct(res.data.data));
-            setisSuccess("Product created Successfully");
-            setisFailure("");
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          setisFailure("Product creation Failed");
-          setisSuccess("");
-        });
-    }
+    await UpdateProduct(Token, product);
   };
 
   const handleManageProductsClick = () => {
-    navigate("/admin/products");
+    navigate(routes.ADMIN_PRODUCTS);
   };
+
   return (
     <Container className="w-50">
       <div className="mt-4">
@@ -108,24 +69,6 @@ function AdminAddEditProduct() {
           </Breadcrumb.Item>
           <Breadcrumb.Item active>Product</Breadcrumb.Item>
         </Breadcrumb>
-        <div
-          className="bg-success mb-2"
-          style={{
-            textAlign: "center",
-            display: isSuccess.length > 0 ? "block" : "none",
-          }}
-        >
-          {isSuccess}
-        </div>
-        <div
-          className="bg-danger mb-2"
-          style={{
-            textAlign: "center",
-            display: isFailure.length > 0 ? "block" : "none",
-          }}
-        >
-          {isFailure}
-        </div>
         <div>
           {product_id !== undefined && product_id.length > 0 && (
             <strong>Edit Product</strong>

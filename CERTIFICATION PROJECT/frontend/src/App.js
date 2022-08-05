@@ -17,12 +17,7 @@ import OrderDetails from "./components/orders/OrderDetails";
 import AccessDeniedPage from "./components/common/AccessDeniedPage";
 import { useSelector } from "react-redux";
 import DisplayAlertMessage from "./components/common/DisplayAlertMessage";
-
-const alwaysCentered = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-};
+import * as routes from "./constants/routes";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -30,12 +25,15 @@ function App() {
     <div>
       <Header></Header>
       <DisplayAlertMessage></DisplayAlertMessage>
-      <div style={alwaysCentered} className="mb-4 pb-2">
+      <div className="alwaysCentered mb-4 pb-2">
         <Routes>
-          <Route path="/login" element={<Login isLogin={true} />}></Route>
-          <Route path="/register" element={<Login isLogin={false} />}></Route>
+          <Route path={routes.LOGIN} element={<Login isLogin={true} />}></Route>
           <Route
-            path="/profile"
+            path={routes.REGISTER}
+            element={<Login isLogin={false} />}
+          ></Route>
+          <Route
+            path={routes.PROFILE}
             element={
               auth.acessToken.length > 0 ? (
                 <Profile />
@@ -45,15 +43,15 @@ function App() {
             }
           ></Route>
           <Route
-            path="/categories/:catergory_id"
+            path={routes.CATEGORIES_PRODUCT}
             element={<CategoryProducts />}
           ></Route>
-          <Route path="/products/:product_id" element={<ProductPage />}></Route>
-          <Route path="/cart" element={<Cart />}></Route>
-          <Route path="/" element={<Home />}></Route>
-          <Route path="/checkout" element={<Checkout />}></Route>
+          <Route path={routes.VIEW_PRODUCT} element={<ProductPage />}></Route>
+          <Route path={routes.CART} element={<Cart />}></Route>
+          <Route path={routes.HOME} element={<Home />}></Route>
+          <Route path={routes.CHECKOUT} element={<Checkout />}></Route>
           <Route
-            path="/orders"
+            path={routes.ORDERS}
             element={
               auth.acessToken.length > 0 ? (
                 <Orders />
@@ -63,7 +61,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/orders/:id"
+            path={routes.ORDERS_INFO}
             element={
               auth.acessToken.length > 0 && !auth.isAdmin ? (
                 <OrderDetails />
@@ -73,7 +71,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/admin/add-new-product"
+            path={routes.ADD_PRODUCT}
             element={
               auth.acessToken.length > 0 && auth.isAdmin ? (
                 <AdminAddEditProduct />
@@ -83,7 +81,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/admin/products/:product_id/edit"
+            path={routes.EDIT_PRODUCT}
             element={
               auth.acessToken.length > 0 && auth.isAdmin ? (
                 <AdminAddEditProduct />
@@ -93,7 +91,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/admin/products"
+            path={routes.ADMIN_PRODUCTS}
             element={
               auth.acessToken.length > 0 && auth.isAdmin ? (
                 <AdminManageProducts />
@@ -103,7 +101,7 @@ function App() {
             }
           ></Route>
           <Route
-            path="/admin/orders"
+            path={routes.ADMIN_ORDERS}
             element={
               auth.acessToken.length > 0 && auth.isAdmin ? (
                 <Orders />
@@ -112,8 +110,11 @@ function App() {
               )
             }
           ></Route>
-          <Route path="/categories" element={<CategoryAll />}></Route>
-          <Route path="/accessDenied" element={<AccessDeniedPage />}></Route>
+          <Route path={routes.ALL_CATEGORIES} element={<CategoryAll />}></Route>
+          <Route
+            path={routes.ACCESSDENIED}
+            element={<AccessDeniedPage />}
+          ></Route>
         </Routes>
       </div>
       <Footer></Footer>

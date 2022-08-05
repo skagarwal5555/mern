@@ -33,3 +33,4 @@ export const CLEAR_ORDERS = "CLEAR_ORDERS";
 export const UPDATE_ORDER = "UPDATE_ORDER";
 
 export const CLEAR_AUTH = "CLEAR_AUTH";
+export const SET_ALERT = "SET_ALERT";
