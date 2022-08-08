@@ -198,7 +198,7 @@ router.delete("/:id", auth, async (req, res) => {
   if (req.user !== null && req.user.isAdmin) {
     Order.findByIdAndUpdate(
       req.params.id,
-      { isDeleted: false },
+      { isDeleted: true },
       (err, result) => {
         if (err) throw err;
         return res.status(200).json({
