@@ -83,7 +83,7 @@ router.post("/", async (req, res, next) => {
 
 router.get("/", auth, async (req, res, next) => {
   if (req.user.isAdmin) {
-    var orders = await Order.find()
+    var orders = await Order.find({ isDeleted: false })
       .populate({
         path: "cartId",
         populate: {
@@ -100,15 +100,17 @@ router.get("/", auth, async (req, res, next) => {
       orders,
     });
   } else {
-    var orders = await Order.find({ email: req.user.email }).populate({
-      path: "cartId",
-      populate: {
-        path: "items.productId",
+    var orders = await Order.find({ email: req.user.email, isDeleted: false })
+      .populate({
+        path: "cartId",
         populate: {
-          path: "category",
+          path: "items.productId",
+          populate: {
+            path: "category",
+          },
         },
-      },
-    });
+      })
+      .sort({ isDelivered: 1, createdAt: 1 });
     if (orders.length != 0) {
       res.status(200).json({
         status: "success",
@@ -125,7 +127,10 @@ router.get("/", auth, async (req, res, next) => {
 
 router.get("/:id", auth, async (req, res, next) => {
   if (req.user.isAdmin) {
-    var orders = await Order.findOne({ _id: req.params.id }).populate({
+    var orders = await Order.findOne({
+      _id: req.params.id,
+      isDeleted: false,
+    }).populate({
       path: "cartId",
       populate: {
         path: "items.productId",
@@ -140,7 +145,10 @@ router.get("/:id", auth, async (req, res, next) => {
       orders,
     });
   } else {
-    var orders = await Order.findOne({ _id: req.params.id }).populate({
+    var orders = await Order.findOne({
+      _id: req.params.id,
+      isDeleted: false,
+    }).populate({
       path: "cartId",
       populate: {
         path: "items.productId",
@@ -188,13 +196,17 @@ router.patch("/", auth, async (req, res) => {
 
 router.delete("/:id", auth, async (req, res) => {
   if (req.user !== null && req.user.isAdmin) {
-    Order.findByIdAndRemove(req.params.id, (err, result) => {
-      if (err) throw err;
-      return res.status(200).json({
-        status: "success",
-        message: "Order deleted successfully",
-      });
-    });
+    Order.findByIdAndUpdate(
+      req.params.id,
+      { isDeleted: false },
+      (err, result) => {
+        if (err) throw err;
+        return res.status(200).json({
+          status: "success",
+          message: "Order deleted successfully",
+        });
+      }
+    );
   } else {
     res.status(403).json({ message: "Access Denied" });
   }

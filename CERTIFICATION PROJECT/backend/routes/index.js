@@ -6,7 +6,7 @@ const Categories = require("../models/category");
 /* GET home page banner. */
 router.get("/banner", async (req, res) => {
   try {
-    var products = await Product.find()
+    var products = await Product.find({ isDeleted: false })
       .select({ name: 1, productImage: 1 })
       .sort({ createdAt: -1 });
     products = products.splice(0, 3);
@@ -60,6 +60,7 @@ router.get("/Allcategories", async (req, res) => {
 router.get("/products", async (req, res) => {
   try {
     var products = await Product.aggregate([
+      { $match: { isDeleted: false } },
       {
         $lookup: {
           from: "categories",
@@ -88,7 +89,10 @@ router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id, { id });
-    const product = await Product.find({ category: id }).populate("category");
+    const product = await Product.find({
+      category: id,
+      isDeleted: false,
+    }).populate("category");
     res.status(200).json({
       status: "success",
       product,

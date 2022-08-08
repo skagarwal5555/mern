@@ -8,7 +8,9 @@ const { check, validationResult } = require("express-validator/check");
 //get all products
 router.get("/", async (req, res) => {
   try {
-    const products = await Product.find({}).populate("category");
+    const products = await Product.find({ isDeleted: false }).populate(
+      "category"
+    );
     res.status(200).json({
       status: "success",
       products,
@@ -24,7 +26,9 @@ router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id, { id });
-    const product = await Product.findById(id).populate("category");
+    const product = await Product.find({ _id: id, isDeleted: false }).populate(
+      "category"
+    );
     res.status(200).json({
       status: "success",
       product,
@@ -41,6 +45,7 @@ router.get("/name/:name", async (req, res) => {
     console.log(name);
     const products = await Product.find({
       name: { $regex: name, $options: "i" },
+      isDeleted: false,
     });
     res.status(200).json({
       status: "success",

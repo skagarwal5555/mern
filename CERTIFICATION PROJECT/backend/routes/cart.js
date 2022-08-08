@@ -1,6 +1,5 @@
 var express = require("express");
 var router = express.Router();
-var Order = require("../models/order");
 var Cart = require("../models/cart");
 var auth = require("../middleware/auth");
 var Product = require("../models/product");

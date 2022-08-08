@@ -75,7 +75,10 @@ router.delete("/:id", auth, async (req, res) => {
   if (req.user !== null && req.user.isAdmin) {
     try {
       const id = req.params.id;
-      const data = await Product.remove({ _id: id });
+      const data = await Product.findByIdAndUpdate(
+        { _id: id },
+        { isDeleted: true }
+      );
       res.status(200).json({
         status: "success",
         message: "product deleted successfully",
