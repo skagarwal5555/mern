@@ -6,6 +6,7 @@ import profileIcon from "../static/profile_icon.png";
 import { useRef } from "react";
 import store from "../redux/store/store";
 import { setAlertMessage } from "../redux/actions/authActions";
+import { updateProfileSuccess } from "../redux/actions/profileActions";
 
 function Profile() {
   const inputRef = useRef(null);
@@ -14,6 +15,7 @@ function Profile() {
   let [profile, setProfile] = useState(profileState);
   let [isEditing, setIsEditing] = useState(false);
 
+  console.log(profileState);
   const addressChangeHandler = (e) => {
     setProfile((prevState) => ({
       ...prevState,
@@ -49,6 +51,7 @@ function Profile() {
         store.dispatch(
           setAlertMessage("Profile updated successfully", "success")
         );
+        store.dispatch(updateProfileSuccess(profile));
         setIsEditing(false);
       })
       .catch((err) => {

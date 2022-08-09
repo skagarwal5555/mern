@@ -1,15 +1,16 @@
 import axios from "axios";
 import { useState } from "react";
 import { Card, Button, Form, Row, Col } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export function RegisterCard() {
+  let navigate = useNavigate();
   let [firstname, setFirstName] = useState("");
   let [lastname, setLastName] = useState("");
   let [email, setEmail] = useState("");
   let [password, setPassword] = useState("");
   let [confirmPassword, setConfirmPassword] = useState("");
   let [isNotCreated, setIsNotCreated] = useState(false);
-  let [isCreated, setIsCreated] = useState(false);
   let [isPasswordMatch, setIsPasswordMatch] = useState(true);
   let [validationError, setValidationError] = useState("");
   const handleSubmit = (event) => {
@@ -21,7 +22,6 @@ export function RegisterCard() {
       password,
       confirmPassword,
     });
-    setIsCreated(false);
     setIsNotCreated(false);
 
     if (password !== confirmPassword) {
@@ -34,7 +34,7 @@ export function RegisterCard() {
       .then((res) => {
         console.log(res);
         if (res.data.status === "Success") {
-          setIsCreated(true);
+          navigate("/");
         } else {
           setIsNotCreated(true);
         }
@@ -55,9 +55,6 @@ export function RegisterCard() {
 
   return (
     <>
-      {isCreated && (
-        <div className="alert alert-success">User registered successfully</div>
-      )}
       {isNotCreated && (
         <div className="alert alert-danger">{validationError}</div>
       )}
@@ -133,7 +130,7 @@ export function RegisterCard() {
               variant="primary"
               type="submit"
               data-testid="register-submit"
-              style={{ display: isCreated ? "none" : "block" }}
+              style={{ display: isNotCreated ? "block" : "none" }}
             >
               Register
             </Button>

@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { addProductItemToCart } from "../../redux/actions/cartActions";
 import { displayMoney } from "../../helpers/utils";
 import * as routes from "../../constants/routes";
+import { setAlertMessage } from "../../redux/actions/authActions";
+import store from "../../redux/store/store";
 
 const cardStyle = {
   borderRadius: "5px",
@@ -59,6 +61,9 @@ export function ProductPage() {
 
   const addToCart = () => {
     addProductItemToCart(product, auth.acessToken, cartItems);
+    store.dispatch(
+      setAlertMessage("Product successfully addedd to cart", "success")
+    );
   };
 
   const buyNow = () => {

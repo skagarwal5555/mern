@@ -26,9 +26,10 @@ router.get("/:id", async (req, res) => {
   try {
     const id = req.params.id;
     console.log(id, { id });
-    const product = await Product.find({ _id: id, isDeleted: false }).populate(
-      "category"
-    );
+    const product = await Product.findOne({
+      _id: id,
+      isDeleted: false,
+    }).populate("category");
     res.status(200).json({
       status: "success",
       product,

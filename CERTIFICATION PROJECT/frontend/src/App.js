@@ -4,7 +4,7 @@ import { Home } from "./components/home/Home";
 import { CategoryProducts } from "./components/category/Category-products";
 import { ProductPage } from "./components/products/Product-page";
 import { Cart } from "./components/cart/Carts";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import { Footer } from "./components/common/Footer";
 import { Header } from "./components/navigation/Header";
 import Profile from "./components/Profile";
@@ -18,6 +18,7 @@ import AccessDeniedPage from "./components/common/AccessDeniedPage";
 import { useSelector } from "react-redux";
 import DisplayAlertMessage from "./components/common/DisplayAlertMessage";
 import * as routes from "./constants/routes";
+import PageNotFound from "./components/common/PageNotFound";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -115,6 +116,7 @@ function App() {
             path={routes.ACCESSDENIED}
             element={<AccessDeniedPage />}
           ></Route>
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </div>
       <Footer></Footer>

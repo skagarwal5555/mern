@@ -22,14 +22,34 @@ router.get("/banner", async (req, res) => {
 
 router.get("/categories", async (req, res) => {
   try {
-    const categories = await Categories.aggregate([
+    let categories = await Product.aggregate([
+      { $match: { isDeleted: false } },
       {
-        $project: {
-          name: 1,
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
         },
       },
-      { $sample: { size: 3 } },
+      {
+        $unwind: "$category",
+      },
+      {
+        $project: {
+          _id: "$category._id",
+          name: "$category.name",
+        },
+      },
+      { $sample: { size: 5 } },
+      //taking five to avoid empty categories for products that are deleted and no other product exist in that category
     ]);
+
+    //this is to avoid dulicate
+    categories = [
+      ...new Map(categories.map((item) => [item["name"], item])).values(),
+    ].slice(0, 3); //slice is to take only 3 elements for home page
+
     res.status(200).json({
       status: "success",
       categories,
@@ -44,7 +64,31 @@ router.get("/categories", async (req, res) => {
 
 router.get("/Allcategories", async (req, res) => {
   try {
-    const categories = await Categories.find();
+    let categories = await Product.aggregate([
+      { $match: { isDeleted: false } },
+      {
+        $lookup: {
+          from: "categories",
+          localField: "category",
+          foreignField: "_id",
+          as: "category",
+        },
+      },
+      {
+        $unwind: "$category",
+      },
+      {
+        $project: {
+          _id: "$category._id",
+          name: "$category.name",
+        },
+      },
+    ]);
+
+    categories = [
+      ...new Map(categories.map((item) => [item["name"], item])).values(),
+    ];
+
     res.status(200).json({
       status: "success",
       categories,

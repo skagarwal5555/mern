@@ -4,6 +4,8 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { DeleteProduct } from "../../redux/actions/productActions";
 import { displayMoney } from "../../helpers/utils";
+import { setAlertMessage } from "../../redux/actions/authActions";
+import store from "../../redux/store/store";
 
 function AdminProductRow({ product }) {
   const navigate = useNavigate();
@@ -11,9 +13,12 @@ function AdminProductRow({ product }) {
   const handleEditProduct = () => {
     navigate("/admin/products/" + product._id + "/edit");
   };
+
   const handleDeleteProduct = async () => {
     await DeleteProduct(product._id, Token);
+    store.dispatch(setAlertMessage("Product successfully deleted", "success"));
   };
+
   return (
     <>
       <Row data-testid="manage-product-row">
