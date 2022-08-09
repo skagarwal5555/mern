@@ -82,6 +82,29 @@ function AdminNavigation({ auth }) {
               </div>
             </li>
           </ul>
+          <ul className="navbar-nav">
+            <li className="nav-item dropdown">
+              <a
+                href="/"
+                className="nav-link dropdown-toggle"
+                role="button"
+                data-toggle="dropdown"
+              >
+                <strong>Users</strong>
+              </a>
+              <div className="dropdown-menu dropdown-menu-right bg-info">
+                <NavLink
+                  to={routes.ADD_USER}
+                  className="nav-link nav-item navbar-dark nav-link"
+                >
+                  Add User
+                </NavLink>
+                <NavLink to={routes.ADMIN_USERS} className="nav-link nav-item">
+                  Manage Users
+                </NavLink>
+              </div>
+            </li>
+          </ul>
           <ul
             className="navbar-nav"
             style={{ display: auth.acessToken !== "" ? "block" : "none" }}

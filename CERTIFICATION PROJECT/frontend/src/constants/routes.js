@@ -14,3 +14,6 @@ export const EDIT_PRODUCT = "/admin/products/:product_id/edit";
 export const ADMIN_ORDERS = "/admin/orders";
 export const ALL_CATEGORIES = "/categories";
 export const ACCESSDENIED = "/accessdenied";
+export const ADMIN_USERS = "/admin/users";
+export const ADD_USER = "/admin/add-new-user";
+export const EDIT_USER = "/admin/users/:user_id/edit";

@@ -35,6 +35,7 @@ var upload = multer({
   },
 });
 
+//register
 router.post(
   "/register",
   [
@@ -98,8 +99,9 @@ router.post("/login", [
     } else {
       const { email, password } = req.body;
       try {
-        let user = await User.findOne({
-          email,
+        let user = await User.find({
+          email: email,
+          isDeleted: false,
         });
 
         if (!user) {
@@ -167,6 +169,7 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
+//update profile image
 router.patch(
   "/image",
   auth,
@@ -195,16 +198,20 @@ router.patch(
   }
 );
 
-router.patch("/address", auth, async (req, res) => {
+//update user
+router.patch("/", auth, async (req, res) => {
   try {
-    const userObj = await User.findById(req.user.id);
-    userObj.address = req.body;
-    console.log(userObj.address);
+    console.log(req);
     await User.updateOne(
-      { _id: req.user.id },
+      { _id: req.body._id },
       {
         $set: {
-          address: req.body,
+          phone: req.body.phone,
+          interests: req.body.interests,
+          email: req.body.email,
+          firstname: req.body.firstname,
+          lastname: req.body.lastname,
+          address: req.body.address,
           updatedOn: new Date().toLocaleString(),
         },
       }
@@ -222,6 +229,36 @@ router.patch("/address", auth, async (req, res) => {
   }
 });
 
+//delete user
+router.delete("/:id", auth, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      await User.updateOne(
+        { _id: req.params.id },
+        {
+          $set: {
+            isDeleted: "true",
+            updatedOn: new Date().toLocaleString(),
+          },
+        }
+      );
+
+      res.status(200).json({
+        status: "success",
+        message: "profile deleted successfully",
+      });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Could not delete profile" });
+    }
+  } else {
+    res.status(403).json({ message: "Access Denied" });
+  }
+});
+
+//delete user profile image
 router.delete("/image", auth, async (req, res) => {
   try {
     const userObj = await User.findById(req.user.id);
@@ -259,4 +296,78 @@ router.delete("/image", auth, async (req, res) => {
       .json({ success: false, message: "Could not delete profile image" });
   }
 });
+
+//get all user profile
+router.get("/", auth, async (req, res) => {
+  if (req.user.isAdmin) {
+    try {
+      const userList = await User.find({ isDeleted: false });
+
+      res.status(200).json({
+        status: "success",
+        users: userList,
+      });
+    } catch (error) {
+      console.log(error);
+      res
+        .status(500)
+        .json({ success: false, message: "Could not fetch users" });
+    }
+  } else {
+    res.status(403).json({ message: "Access Denied" });
+  }
+});
+
+//create new user
+router.post(
+  "/addUser",
+  [
+    check("firstname", "Please Enter a first name").not().isEmpty(),
+    check("email", "Please Enter an email").not().isEmpty(),
+    check("email", "Please Enter a valid email").isEmail(),
+    check("password", "Please Enter a Valid Password").isLength({
+      min: 6,
+    }),
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).send({ status: "failed", errors: errors.array() });
+    } else {
+      const { email } = req.body;
+      try {
+        let user = await User.findOne({
+          email,
+        });
+
+        if (user) {
+          res
+            .status(400)
+            .send({ status: "failed", message: "User already exists" });
+        } else {
+          user = new User({
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            email: req.body.email,
+            password: req.body.password,
+            phone: req.body.phone,
+            interests: req.body.interests,
+            address: req.body.address,
+          });
+
+          const salt = await bcrypt.genSalt(10);
+          user.password = await bcrypt.hash(req.body.password, salt);
+
+          const data = await user.save();
+
+          res.status(200).send({ status: "Success", user: data });
+        }
+      } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Error in validating user!");
+      }
+    }
+  }
+);
+
 module.exports = router;

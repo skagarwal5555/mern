@@ -47,6 +47,7 @@ app.use("/api/v1/profile", usersRouter);
 app.use("/api/v1/homepage", indexRouter);
 app.use("/api/v1/category", indexRouter);
 app.use("/api/v1/products", productsRouter);
+app.use("/api/v1/admin/users", usersRouter);
 
 app.get("/", (req, res) => {
   res.json({ message: "Express auth demo API works!" });

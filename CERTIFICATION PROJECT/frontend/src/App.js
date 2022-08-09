@@ -19,6 +19,8 @@ import { useSelector } from "react-redux";
 import DisplayAlertMessage from "./components/common/DisplayAlertMessage";
 import * as routes from "./constants/routes";
 import PageNotFound from "./components/common/PageNotFound";
+import AdminManageUsers from "./components/admin/users/AdminManageUsers";
+import AdminAddEditUsers from "./components/admin/users/AdminAddEditUsers";
 
 function App() {
   const auth = useSelector((state) => state.auth);
@@ -96,6 +98,36 @@ function App() {
             element={
               auth.acessToken.length > 0 && auth.isAdmin ? (
                 <AdminManageProducts />
+              ) : (
+                <AccessDeniedPage></AccessDeniedPage>
+              )
+            }
+          ></Route>
+          <Route
+            path={routes.ADD_USER}
+            element={
+              auth.acessToken.length > 0 && auth.isAdmin ? (
+                <AdminAddEditUsers />
+              ) : (
+                <AccessDeniedPage></AccessDeniedPage>
+              )
+            }
+          ></Route>
+          <Route
+            path={routes.EDIT_USER}
+            element={
+              auth.acessToken.length > 0 && auth.isAdmin ? (
+                <AdminAddEditUsers />
+              ) : (
+                <AccessDeniedPage></AccessDeniedPage>
+              )
+            }
+          ></Route>
+          <Route
+            path={routes.ADMIN_USERS}
+            element={
+              auth.acessToken.length > 0 && auth.isAdmin ? (
+                <AdminManageUsers />
               ) : (
                 <AccessDeniedPage></AccessDeniedPage>
               )

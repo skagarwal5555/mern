@@ -34,3 +34,8 @@ export const UPDATE_ORDER = "UPDATE_ORDER";
 
 export const CLEAR_AUTH = "CLEAR_AUTH";
 export const SET_ALERT = "SET_ALERT";
+
+export const ADD_USER = "ADD_USER";
+export const REMOVE_USER = "REMOVE_USER";
+export const EDIT_USER = "EDIT_USER";
+export const SET_USERS = "SET_USERS";

@@ -30,6 +30,10 @@ const user_schema = new mongoose.Schema(
         zipCode: "",
       },
     },
+    isDeleted: {
+      type: Boolean,
+      default: false,
+    },
   },
   { versionKey: false, timestamps: true }
 );

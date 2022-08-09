@@ -15,7 +15,6 @@ function Profile() {
   let [profile, setProfile] = useState(profileState);
   let [isEditing, setIsEditing] = useState(false);
 
-  console.log(profileState);
   const addressChangeHandler = (e) => {
     setProfile((prevState) => ({
       ...prevState,
@@ -23,6 +22,13 @@ function Profile() {
         ...prevState.address,
         [e.target.name]: e.target.value,
       },
+    }));
+  };
+
+  const changeHandler = (e) => {
+    setProfile((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -37,15 +43,9 @@ function Profile() {
     const config = {
       headers: { token: token },
     };
-    const data = {
-      streetAddress: profile.address.streetAddress,
-      city: profile.address.city,
-      state: profile.address.state,
-      zipCode: profile.address.zipCode,
-    };
 
     await axios
-      .patch("http://localhost:8081/api/v1/profile/address", data, config)
+      .patch("http://localhost:8081/api/v1/profile/", profile, config)
       .then((res) => {
         console.log(res);
         store.dispatch(
@@ -238,22 +238,59 @@ function Profile() {
                           </strong>
                         </Form.Text>
                       </Form.Group>
-                      <Form.Group className="mb-3" controlId="formPhone">
-                        <Form.Label className="text-muted mb-0">
-                          Phone
-                        </Form.Label>
-                        <Form.Text className="mt-0 text-dark">
-                          <strong>{profile.phone}</strong>
-                        </Form.Text>
-                      </Form.Group>
-                      <Form.Group className="mb-3" controlId="formInterests">
-                        <Form.Label className="text-muted mb-0">
-                          Interests
-                        </Form.Label>
-                        <Form.Text className="mt-0 text-dark">
-                          <strong>{profile.interests}</strong>
-                        </Form.Text>
-                      </Form.Group>
+                      {isEditing && (
+                        <>
+                          <Form.Group className="mb-3" controlId="phone">
+                            <Form.Label className="text-muted mb-0">
+                              Phone
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder=""
+                              name="phone"
+                              value={profile.phone}
+                              onChange={changeHandler}
+                              required
+                            />
+                          </Form.Group>
+                          <Form.Group className="mb-3" controlId="interests">
+                            <Form.Label className="text-muted mb-0">
+                              Interests
+                            </Form.Label>
+                            <Form.Control
+                              type="text"
+                              placeholder=""
+                              name="interests"
+                              value={profile.interests}
+                              onChange={changeHandler}
+                              required
+                            />
+                          </Form.Group>
+                        </>
+                      )}
+                      {!isEditing && (
+                        <>
+                          <Form.Group className="mb-3" controlId="formPhone">
+                            <Form.Label className="text-muted mb-0">
+                              Phone
+                            </Form.Label>
+                            <Form.Text className="mt-0 text-dark">
+                              <strong>{profile.phone}</strong>
+                            </Form.Text>
+                          </Form.Group>
+                          <Form.Group
+                            className="mb-3"
+                            controlId="formInterests"
+                          >
+                            <Form.Label className="text-muted mb-0">
+                              Interests
+                            </Form.Label>
+                            <Form.Text className="mt-0 text-dark">
+                              <strong>{profile.interests}</strong>
+                            </Form.Text>
+                          </Form.Group>
+                        </>
+                      )}
                       <Row className="mb-4">
                         <Col md={6}>
                           <Form.Group className="mb-3" controlId="formAddress">
