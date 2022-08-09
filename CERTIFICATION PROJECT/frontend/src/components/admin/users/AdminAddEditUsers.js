@@ -119,6 +119,7 @@ function AdminAddEditUsers() {
                   value={user.email}
                   onChange={handleChange}
                   required
+                  placeholder="Enter email address"
                 />
               </Form.Group>
             </Col>
@@ -132,6 +133,7 @@ function AdminAddEditUsers() {
                   value={user.phone}
                   onChange={handleChange}
                   name="phone"
+                  placeholder="Enter phone number"
                 />
               </Form.Group>
             </Col>
@@ -156,7 +158,7 @@ function AdminAddEditUsers() {
                 </Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder=""
+                  placeholder="Enter street address"
                   name="streetAddress"
                   value={user.address.streetAddress}
                   onChange={handleAddressChange}
@@ -168,7 +170,7 @@ function AdminAddEditUsers() {
                 <Form.Label className="text-muted mb-0">City</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder=""
+                  placeholder="Enter city"
                   value={user.address.city}
                   onChange={handleAddressChange}
                   name="city"
@@ -182,7 +184,7 @@ function AdminAddEditUsers() {
                 <Form.Label className="text-muted mb-0">State</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder=""
+                  placeholder="Enter state"
                   value={user.address.state}
                   onChange={handleAddressChange}
                   name="state"
@@ -194,7 +196,7 @@ function AdminAddEditUsers() {
                 <Form.Label className="text-muted mb-0">Zip Code</Form.Label>
                 <Form.Control
                   type="text"
-                  placeholder=""
+                  placeholder="Enter zipcode"
                   name="zipCode"
                   value={user.address.zipCode}
                   onChange={handleAddressChange}
@@ -209,7 +211,7 @@ function AdminAddEditUsers() {
                 variant="primary"
                 type="submit"
                 className="pull-right mb-5"
-                data-testid="update-product-button"
+                data-testid="update-user-button"
               >
                 Update User
               </Button>

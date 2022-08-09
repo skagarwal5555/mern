@@ -99,7 +99,7 @@ router.post("/login", [
     } else {
       const { email, password } = req.body;
       try {
-        let user = await User.find({
+        let user = await User.findOne({
           email: email,
           isDeleted: false,
         });
@@ -360,7 +360,7 @@ router.post(
 
           const data = await user.save();
 
-          res.status(200).send({ status: "Success", user: data });
+          res.status(201).send({ status: "Success", user: data });
         }
       } catch (err) {
         console.error(err.message);
